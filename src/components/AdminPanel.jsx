@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ADMIN_CODE } from "../adminSecret";
+
+const ADMIN_CODE = import.meta.env.VITE_ADMIN_CODE || "definir-codigo";
 
 const STORAGE_KEY = "admin_access";
 
