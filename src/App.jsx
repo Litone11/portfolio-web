@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import heroPortrait from "./assets/pp.jpeg";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -44,6 +45,7 @@ export default function App() {
     profile?.bio ||
     "Adiciona aqui uma bio curta que conte quem és, o impacto que geras e o tipo de desafios em que brilhas.";
   const skills = profile?.skills || [];
+  const portrait = profile?.photo || heroPortrait;
 
   const initials = useMemo(() => {
     return name
@@ -53,6 +55,14 @@ export default function App() {
       .map((p) => p[0]?.toUpperCase())
       .join("");
   }, [name]);
+
+  const techTags = useMemo(() => {
+    const fromProjects = projects.flatMap((p) => p.tech || []);
+    const all = [...skills, ...fromProjects];
+    return Array.from(new Set(all)).slice(0, 18);
+  }, [skills, projects]);
+
+  const featuredProject = projects[0];
 
   if (loading) {
     return (
@@ -104,6 +114,28 @@ export default function App() {
       <div className="halo halo-two" />
       <div className="halo halo-three" />
 
+      <nav className="topbar">
+        <div className="logo-mark">
+          <span>{initials || "UX"}</span>
+        </div>
+        <div className="topbar__links">
+          <a href="#skills" className="subtle-link">
+            Skills
+          </a>
+          <a href="#projects" className="subtle-link">
+            Projetos
+          </a>
+          <a href="#contact" className="subtle-link">
+            Contacto
+          </a>
+        </div>
+        {profile?.email && (
+          <a className="btn ghost small" href={`mailto:${profile.email}`}>
+            Conversar
+          </a>
+        )}
+      </nav>
+
       <header className="card hero">
         <div className="hero__meta">
           <span className="pill">Portfolio vivo</span>
@@ -154,7 +186,7 @@ export default function App() {
 
           <div className="hero__aside">
             <div className="avatar">
-              <span>{initials || "?"}</span>
+              <img src={portrait} alt={`Foto de ${name}`} />
             </div>
 
             <ul className="stats">
@@ -178,7 +210,19 @@ export default function App() {
         </div>
       </header>
 
-      <section className="section">
+      {techTags.length > 0 && (
+        <div className="marquee">
+          <div className="marquee__track">
+            {techTags.concat(techTags).map((tag, idx) => (
+              <span key={tag + idx} className="marquee__item">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <section className="section" id="skills">
         <div className="section__header">
           <p className="eyebrow">Stack & processos</p>
           <h2>Ferramentas que dão vida às ideias</h2>
@@ -206,6 +250,75 @@ export default function App() {
       </section>
 
       <section className="section">
+        <div className="section__header">
+          <p className="eyebrow">Processo</p>
+          <h2>Ritmo claro do primeiro call ao ship</h2>
+          <p className="muted">Pequenas fases que reduzem risco e aceleram entregas.</p>
+        </div>
+
+        <div className="process-grid">
+          {[
+            {
+              title: "Descoberta & alinhamento",
+              text: "Mapeio objetivos, público e métricas. Juntos escolhemos o norte.",
+            },
+            {
+              title: "Prototipagem & iteração",
+              text: "Testo cedo com protótipos navegáveis para validar direção.",
+            },
+            {
+              title: "Entrega & evolução",
+              text: "Códigos e design systems prontos para escalar, com acompanhamento após o launch.",
+            },
+          ].map((item) => (
+            <div key={item.title} className="process-card">
+              <div className="process-dot" />
+              <div>
+                <p className="label">{item.title}</p>
+                <p className="muted">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {featuredProject && (
+        <section className="card featured" id="featured">
+          <div className="featured__meta">
+            <p className="eyebrow">Destaque</p>
+            <h2>{featuredProject.title}</h2>
+            <p className="muted">{featuredProject.description}</p>
+            <div className="tags">
+              {(featuredProject.tech || []).map((t) => (
+                <span key={t} className="tag bright">
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="hero__actions">
+              {featuredProject.github && (
+                <a className="btn ghost" href={featuredProject.github} target="_blank" rel="noreferrer">
+                  Código
+                </a>
+              )}
+              {featuredProject.demo && (
+                <a className="btn primary" href={featuredProject.demo} target="_blank" rel="noreferrer">
+                  Ver live
+                </a>
+              )}
+            </div>
+          </div>
+          <div className="featured__meta secondary">
+            <div className="gradient-box">
+              <p className="eyebrow small">{featuredProject.type || "Projeto"}</p>
+              <p className="value">{(featuredProject.tech || []).length || 3} techs</p>
+              <p className="muted">Stack afinada para performance e impacto.</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="section" id="projects">
         <div className="section__header">
           <p className="eyebrow">Portfólio</p>
           <h2>Projetos em destaque</h2>
@@ -259,7 +372,7 @@ export default function App() {
         )}
       </section>
 
-      <section className="card cta">
+      <section className="card cta" id="contact">
         <div>
           <p className="eyebrow">Vamos construir</p>
           <h2>Pronto para lançar algo inesquecível?</h2>
