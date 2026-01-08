@@ -1,16 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  --bg: #04060d;
-  --text-primary: #e8edff;
-  --text-secondary: #a8b0c6;
-  --accent: #70ffaf;
-  --accent-2: #7bd2ff;
-  font-family: "Space Grotesk", "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--text-primary);
-  background-color: var(--bg);
+  color: #0f172a;
+  background-color: #f8fafc;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,12 +18,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(112, 255, 175, 0.06), transparent 28%),
-    radial-gradient(circle at 88% 10%, rgba(123, 210, 255, 0.06), transparent 24%),
-    radial-gradient(circle at 20% 90%, rgba(123, 210, 255, 0.04), transparent 24%),
-    #04060d;
-  color: var(--text-primary);
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 #root {
@@ -42,7 +33,7 @@ a {
 h1,
 h2,
 h3 {
-  font-family: "Space Grotesk", "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 700;
   margin: 0;
 }
@@ -52,10 +43,10 @@ p {
 }
 
 strong {
-  color: var(--text-primary);
+  color: #0f172a;
 }
 
 ::selection {
-  background: rgba(112, 255, 175, 0.2);
-  color: var(--text-primary);
+  background: rgba(37, 99, 255, 0.2);
+  color: #0f172a;
 }
