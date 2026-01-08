@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import heroPortrait from "./asset/pp.jpeg";
+import heroPortrait from "./assets/pp.jpeg";
 
 const API = import.meta.env.VITE_API_URL;
 
