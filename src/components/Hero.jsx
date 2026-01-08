@@ -31,10 +31,24 @@ export default function Hero({ name, headline, bio, github, linkedin, email, pri
           label: "Email",
           href: `mailto:${email}`,
           svg: (
-            <path
-              d="M4 6.5h16a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 16V8A1.5 1.5 0 0 1 4 6.5Zm0 1.5v.22l8 4.44 8-4.44V8H4Zm16 7v-5.3l-7.52 4.18a1 1 0 0 1-.96 0L4 9.7V15h16Z"
-              fill="currentColor"
-            />
+            <>
+              <path
+                d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="m4 7 7.34 4.4a1.5 1.5 0 0 0 1.32 0L20 7"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </>
           ),
         }
       : null,
@@ -47,15 +61,6 @@ export default function Hero({ name, headline, bio, github, linkedin, email, pri
       </h1>
       <p className="headline">{headline}</p>
       <p className="lead">{bio}</p>
-
-      <div className="hero__actions">
-        <a className="btn primary" href={primaryHref}>
-          Ver Projetos
-        </a>
-        <a className="btn ghost" href={contactHref}>
-          Contactar
-        </a>
-      </div>
 
       {icons.length > 0 && (
         <div className="hero__icons">

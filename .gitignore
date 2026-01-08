@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Admin secret (não versionar)
+src/adminSecret.js

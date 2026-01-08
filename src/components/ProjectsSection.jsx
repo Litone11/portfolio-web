@@ -11,6 +11,11 @@ export default function ProjectsSection({ projects }) {
         <div className="projects-grid">
           {projects.map((proj, idx) => (
             <article key={proj.title + idx} className="project-card">
+              {proj.image && (
+                <div className="project-thumb">
+                  <img src={proj.image} alt={proj.title || "Projeto"} loading="lazy" />
+                </div>
+              )}
               <div className="project-card__head">
                 <div>
                   <p className="eyebrow small">{proj.type || "Projeto"}</p>

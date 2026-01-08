@@ -1,4 +1,6 @@
 export default function SkillsSection({ skills }) {
+  const marqueeSkills = skills.length > 0 ? [...skills, ...skills] : [];
+
   return (
     <section className="section" id="skills">
       <div className="section__header">
@@ -8,16 +10,19 @@ export default function SkillsSection({ skills }) {
       </div>
 
       {skills.length > 0 ? (
-        <div className="skills-grid">
-          {skills.map((skill) => (
-            <div key={skill} className="skill-card">
-              <div className="pulse-dot" />
-              <div>
-                <p className="skill-name">{skill}</p>
-                <p className="muted">Experiência aplicada em produtos reais.</p>
-              </div>
+        <div className="skills-marquee-bleed">
+          <div className="skills-marquee">
+            <div className="skills-marquee__track">
+              {marqueeSkills.map((skill, index) => (
+                <div key={`${skill}-${index}`} className="skill-card">
+                  <div className="pulse-dot" />
+                  <div>
+                    <p className="skill-name">{skill}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       ) : (
         <div className="card muted-card">
