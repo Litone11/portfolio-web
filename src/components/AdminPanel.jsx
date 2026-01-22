@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
 const ADMIN_CODE = import.meta.env.VITE_ADMIN_CODE || "definir-codigo";
-
 const STORAGE_KEY = "admin_access";
 
-export default function AdminPanel({ profile, projects, apiBase }) {
+export default function AdminPanel({ profile, projects }) {
   const [codeInput, setCodeInput] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [message, setMessage] = useState("");
@@ -17,17 +16,6 @@ export default function AdminPanel({ profile, projects, apiBase }) {
     github: "",
     linkedin: "",
     skills: "",
-  });
-
-  const [projectForm, setProjectForm] = useState({
-    title: "",
-    description: "",
-    type: "",
-    tech: "",
-    github: "",
-    demo: "",
-    image: "",
-    imageName: "",
   });
 
   useEffect(() => {
@@ -66,86 +54,8 @@ export default function AdminPanel({ profile, projects, apiBase }) {
     setMessage("");
   }
 
-  async function saveProfile() {
-    try {
-      setMessage("A guardar perfil...");
-      const body = {
-        name: profileForm.name,
-        headline: profileForm.headline,
-        bio: profileForm.bio,
-        email: profileForm.email,
-        links: { github: profileForm.github, linkedin: profileForm.linkedin },
-        skills: profileForm.skills
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-      };
-
-      const res = await fetch(`${apiBase}/profile`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) throw new Error(`Erro ${res.status}`);
-      setMessage("Perfil atualizado.");
-    } catch (err) {
-      setMessage(`Erro ao atualizar perfil: ${err.message}`);
-    }
-  }
-
-  async function addProject() {
-    try {
-      setMessage("A criar projeto...");
-      const body = {
-        title: projectForm.title,
-        description: projectForm.description,
-        type: projectForm.type,
-        tech: projectForm.tech
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-        github: projectForm.github,
-        demo: projectForm.demo,
-        image: projectForm.image,
-        imageName: projectForm.imageName,
-      };
-
-      const res = await fetch(`${apiBase}/projects`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) throw new Error(`Erro ${res.status}`);
-      setMessage("Projeto criado.");
-      setProjectForm({
-        title: "",
-        description: "",
-        type: "",
-        tech: "",
-        github: "",
-        demo: "",
-        image: "",
-        imageName: "",
-      });
-    } catch (err) {
-      setMessage(`Erro ao criar projeto: ${err.message}`);
-    }
-  }
-
-  function handleImageChange(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setMessage("Seleciona um ficheiro de imagem.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProjectForm((prev) => ({ ...prev, image: reader.result, imageName: file.name }));
-      setMessage("Imagem anexada e pronta a enviar.");
-    };
-    reader.readAsDataURL(file);
+  function showDisabledMessage() {
+    setMessage("Modo estático ativo. Edita os ficheiros src/data/profile.js e src/data/projects.js diretamente.");
   }
 
   if (!unlocked) {
@@ -179,127 +89,84 @@ export default function AdminPanel({ profile, projects, apiBase }) {
           Sair
         </button>
       </div>
+
+      <div className="admin-notice" style={{
+        background: "var(--surface-2, #1a1a2e)",
+        padding: "1rem",
+        borderRadius: "8px",
+        marginBottom: "1.5rem",
+        border: "1px solid var(--border, #333)"
+      }}>
+        <p style={{ margin: 0, color: "var(--text-muted, #888)" }}>
+          <strong>Modo estático:</strong> Este painel está desativado. Para editar os dados, modifica diretamente os ficheiros:
+        </p>
+        <ul style={{ margin: "0.5rem 0 0 1rem", color: "var(--text-muted, #888)" }}>
+          <li><code>src/data/profile.js</code> - dados do perfil</li>
+          <li><code>src/data/projects.js</code> - lista de projetos</li>
+        </ul>
+      </div>
+
       {message && <p className="muted">{message}</p>}
 
       <div className="admin-grid">
         <div className="admin-section">
-          <h4>Perfil</h4>
+          <h4>Perfil (visualização)</h4>
           <label>
             Nome
-            <input value={profileForm.name} onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })} />
+            <input value={profileForm.name} readOnly style={{ opacity: 0.6 }} />
           </label>
           <label>
             Headline
-            <input
-              value={profileForm.headline}
-              onChange={(e) => setProfileForm({ ...profileForm, headline: e.target.value })}
-            />
+            <input value={profileForm.headline} readOnly style={{ opacity: 0.6 }} />
           </label>
           <label>
             Bio
-            <textarea
-              rows="4"
-              value={profileForm.bio}
-              onChange={(e) => setProfileForm({ ...profileForm, bio: e.target.value })}
-            />
+            <textarea rows="4" value={profileForm.bio} readOnly style={{ opacity: 0.6 }} />
           </label>
           <label>
             Email
-            <input value={profileForm.email} onChange={(e) => setProfileForm({ ...profileForm, email: e.target.value })} />
+            <input value={profileForm.email} readOnly style={{ opacity: 0.6 }} />
           </label>
           <div className="split">
             <label>
               GitHub
-              <input
-                value={profileForm.github}
-                onChange={(e) => setProfileForm({ ...profileForm, github: e.target.value })}
-              />
+              <input value={profileForm.github} readOnly style={{ opacity: 0.6 }} />
             </label>
             <label>
               LinkedIn
-              <input
-                value={profileForm.linkedin}
-                onChange={(e) => setProfileForm({ ...profileForm, linkedin: e.target.value })}
-              />
+              <input value={profileForm.linkedin} readOnly style={{ opacity: 0.6 }} />
             </label>
           </div>
           <label>
-            Skills (separadas por vírgulas)
-            <input
-              value={profileForm.skills}
-              onChange={(e) => setProfileForm({ ...profileForm, skills: e.target.value })}
-            />
+            Skills
+            <input value={profileForm.skills} readOnly style={{ opacity: 0.6 }} />
           </label>
-          <button className="btn primary full" type="button" onClick={saveProfile}>
-            Guardar perfil
+          <button className="btn primary full" type="button" onClick={showDisabledMessage} style={{ opacity: 0.6 }}>
+            Guardar perfil (desativado)
           </button>
         </div>
 
         <div className="admin-section">
-          <h4>Novo projeto</h4>
-          <label>
-            Título
-            <input
-              value={projectForm.title}
-              onChange={(e) => setProjectForm({ ...projectForm, title: e.target.value })}
-            />
-          </label>
-          <label>
-            Descrição
-            <textarea
-              rows="4"
-              value={projectForm.description}
-              onChange={(e) => setProjectForm({ ...projectForm, description: e.target.value })}
-            />
-          </label>
-          <div className="split">
-            <label>
-              Tipo
-              <input value={projectForm.type} onChange={(e) => setProjectForm({ ...projectForm, type: e.target.value })} />
-            </label>
-            <label>
-              Tech (vírgulas)
-              <input value={projectForm.tech} onChange={(e) => setProjectForm({ ...projectForm, tech: e.target.value })} />
-            </label>
-          </div>
-          <div className="split">
-            <label>
-              GitHub
-              <input
-                value={projectForm.github}
-                onChange={(e) => setProjectForm({ ...projectForm, github: e.target.value })}
-              />
-            </label>
-            <label>
-              Demo
-              <input
-                value={projectForm.demo}
-                onChange={(e) => setProjectForm({ ...projectForm, demo: e.target.value })}
-              />
-            </label>
-          </div>
-          <label>
-            Imagem do projeto (upload)
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-            {projectForm.image && (
-              <div className="muted small">
-                Anexado: {projectForm.imageName || "imagem"}
-                <button
-                  type="button"
-                  className="btn text"
-                  onClick={() => setProjectForm({ ...projectForm, image: "", imageName: "" })}
-                >
-                  remover
-                </button>
-              </div>
-            )}
-          </label>
-          <button className="btn ghost full" type="button" onClick={addProject}>
-            Adicionar projeto
-          </button>
+          <h4>Projetos ({projects?.length || 0})</h4>
+          {projects && projects.length > 0 ? (
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {projects.map((p, i) => (
+                <li key={i} style={{
+                  padding: "0.75rem",
+                  marginBottom: "0.5rem",
+                  background: "var(--surface-2, #1a1a2e)",
+                  borderRadius: "6px"
+                }}>
+                  <strong>{p.title}</strong>
+                  <span className="muted" style={{ marginLeft: "0.5rem" }}>({p.type})</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="muted">Nenhum projeto. Adiciona em src/data/projects.js</p>
+          )}
         </div>
       </div>
-
     </section>
   );
 }

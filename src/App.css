@@ -337,7 +337,7 @@
   display: flex;
   gap: var(--skill-gap);
   width: max-content;
-  animation: skills-scroll 22s linear infinite;
+  animation: skills-scroll 45s linear infinite;
 }
 
 .skills-marquee:hover .skills-marquee__track {
@@ -377,6 +377,147 @@
   margin: 0;
   font-weight: 700;
   color: var(--text);
+}
+
+.now-playing {
+  margin-top: 18px;
+  box-shadow: var(--shadow);
+}
+
+.now-playing__content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.now-playing__cover {
+  width: 140px;
+  height: 140px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #e2e8f0;
+  object-fit: cover;
+}
+
+.now-playing__cover.placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.now-playing__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.now-playing__title {
+  margin: 2px 0 0;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.now-playing__meta .artists,
+.now-playing__meta .album {
+  margin: 0;
+}
+
+.now-playing__meta .album span {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.now-playing__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.now-playing__progress-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.now-playing__progress-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.2s linear;
+}
+
+.now-playing__progress-times {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.now-playing .pill.playing {
+  background: rgba(37, 99, 255, 0.08);
+  border-color: rgba(37, 99, 255, 0.2);
+  color: var(--accent);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 37%, #e2e8f0 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease infinite;
+}
+
+.skeleton-line {
+  height: 14px;
+  width: 72%;
+  border-radius: 10px;
+}
+
+.skeleton-line.short {
+  width: 52%;
+}
+
+.skeleton-line.shorter {
+  width: 36%;
+}
+
+.skeleton-pill {
+  height: 28px;
+  width: 120px;
+  border-radius: 999px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@media (max-width: 720px) {
+  .now-playing__content {
+    grid-template-columns: 1fr;
+  }
+
+  .now-playing__cover {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto;
+  }
+
+  .now-playing__meta {
+    align-items: center;
+    text-align: center;
+  }
+
+  .now-playing__progress-times {
+    font-size: 12px;
+  }
 }
 
 /* Currículo */

@@ -113,7 +113,9 @@ export default function Topbar({ email, github, linkedin, contactHref, isAdminPa
   return (
     <nav className="topbar">
       <div className="logo-mark">
-        <img src={logoIcon} alt="Logo" />
+        <a href="/" aria-label="Início">
+          <img src={logoIcon} alt="Logo" />
+        </a>
       </div>
 
       {!isAdminPage && <NavItems className="topbar__links" />}
