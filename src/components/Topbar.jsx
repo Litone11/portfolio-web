@@ -112,15 +112,19 @@ export default function Topbar({ email, github, linkedin, contactHref, isAdminPa
 
   return (
     <nav className="topbar">
+      <NavItems className="topbar__links" />
+
       <div className="logo-mark">
         <a href="/" aria-label="Início">
           <img src={logoIcon} alt="Logo" />
         </a>
       </div>
 
-      {!isAdminPage && <NavItems className="topbar__links" />}
-
-      {!isAdminPage && <ActionItems />}
+      {!isAdminPage ? (
+        <ActionItems />
+      ) : (
+        <div className="topbar__actions"></div>
+      )}
 
       {!isAdminPage && (
         <>
@@ -144,8 +148,6 @@ export default function Topbar({ email, github, linkedin, contactHref, isAdminPa
           </div>
         </>
       )}
-
-      {isAdminPage && <NavItems className="topbar__links" />}
     </nav>
   );
 }

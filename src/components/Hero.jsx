@@ -1,78 +1,158 @@
-export default function Hero({ name, headline, bio, github, linkedin, email, primaryHref, contactHref }) {
-  const accentName = name;
+import { useState, useEffect, useRef } from "react";
 
-  const icons = [
-    github
-      ? {
-          label: "GitHub",
-          href: github,
-          svg: (
-            <path
-              d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.78-.25.78-.55v-2c-3.2.7-3.87-1.39-3.87-1.39-.53-1.35-1.3-1.7-1.3-1.7-1.07-.73.08-.72.08-.72 1.18.08 1.8 1.22 1.8 1.22 1.05 1.8 2.76 1.28 3.44.98.1-.76.41-1.28.74-1.57-2.56-.29-5.26-1.28-5.26-5.67 0-1.25.44-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.06 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.78 0c2.2-1.48 3.17-1.17 3.17-1.17.62 1.6.23 2.77.11 3.06a4.5 4.5 0 0 1 1.17 3.07c0 4.4-2.7 5.37-5.28 5.66.42.36.8 1.09.8 2.2v3.25c0 .3.2.65.79.54A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
-              fill="currentColor"
-            />
-          ),
+const TRAIL_LENGTH = 8;
+const GLOW_COUNT = 4;
+
+const createTrail = (x, y) =>
+  Array.from({ length: GLOW_COUNT }, () =>
+    Array.from({ length: TRAIL_LENGTH }, () => ({ x, y }))
+  );
+
+const createVelocities = () =>
+  Array.from({ length: GLOW_COUNT }, () =>
+    Array.from({ length: TRAIL_LENGTH }, () => ({ x: 0, y: 0 }))
+  );
+
+export default function Hero({ name }) {
+  const heroRef = useRef(null);
+  const [glowTrails, setGlowTrails] = useState(() => createTrail(0, 0));
+  const [isHovering, setIsHovering] = useState(false);
+  const positionsRef = useRef(glowTrails);
+  const velocitiesRef = useRef(createVelocities());
+  const targetsRef = useRef(
+    Array.from({ length: GLOW_COUNT }, () => ({ x: 0, y: 0 }))
+  );
+  const frameRef = useRef(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    const rect = hero.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    positionsRef.current = createTrail(centerX, centerY);
+    targetsRef.current = Array.from({ length: GLOW_COUNT }, () => ({
+      x: centerX,
+      y: centerY
+    }));
+    setGlowTrails(
+      positionsRef.current.map((trail) => trail.map((pos) => ({ ...pos })))
+    );
+
+    const handleMouseMove = (e) => {
+      const bounds = hero.getBoundingClientRect();
+      const x = e.clientX - bounds.left;
+      const y = e.clientY - bounds.top;
+      const cx = bounds.width / 2;
+      const cy = bounds.height / 2;
+      const dx = x - cx;
+      const dy = y - cy;
+
+      targetsRef.current = [
+        { x, y },
+        { x: cx - dx, y: cy + dy },
+        { x: cx + dx, y: cy - dy },
+        { x: cx - dx, y: cy - dy }
+      ];
+    };
+
+    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseLeave = () => setIsHovering(false);
+
+    hero.addEventListener("mousemove", handleMouseMove);
+    hero.addEventListener("mouseenter", handleMouseEnter);
+    hero.addEventListener("mouseleave", handleMouseLeave);
+
+    const animate = () => {
+      const positions = positionsRef.current;
+      const velocities = velocitiesRef.current;
+      const targets = targetsRef.current;
+      const stiffness = 0.12;
+      const damping = 0.78;
+
+      for (let t = 0; t < positions.length; t += 1) {
+        for (let i = 0; i < positions[t].length; i += 1) {
+          const goal = i === 0 ? targets[t] : positions[t][i - 1];
+          const pos = positions[t][i];
+          const vel = velocities[t][i];
+
+          vel.x = (vel.x + (goal.x - pos.x) * stiffness) * damping;
+          vel.y = (vel.y + (goal.y - pos.y) * stiffness) * damping;
+          pos.x += vel.x;
+          pos.y += vel.y;
         }
-      : null,
-    linkedin
-      ? {
-          label: "LinkedIn",
-          href: linkedin,
-          svg: (
-            <path
-              d="M20.45 3H3.54A1.54 1.54 0 0 0 2 4.54v15.9A1.54 1.54 0 0 0 3.54 22h16.9A1.54 1.54 0 0 0 22 20.46V4.54A1.54 1.54 0 0 0 20.46 3ZM8.1 19.18H5.34V9.75H8.1Zm-1.38-11a1.58 1.58 0 1 1 0-3.17 1.58 1.58 0 0 1 0 3.17Zm12.48 11H16.4v-4.58c0-1.1-.02-2.52-1.53-2.52-1.53 0-1.77 1.2-1.77 2.44v4.66H10.3V9.75h2.64v1.29h.04a2.9 2.9 0 0 1 2.6-1.43c2.78 0 3.3 1.83 3.3 4.2Z"
-              fill="currentColor"
-            />
-          ),
-        }
-      : null,
-    email
-      ? {
-          label: "Email",
-          href: `mailto:${email}`,
-          svg: (
-            <>
-              <path
-                d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="m4 7 7.34 4.4a1.5 1.5 0 0 0 1.32 0L20 7"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </>
-          ),
-        }
-      : null,
-  ].filter(Boolean);
+      }
+
+      setGlowTrails(
+        positions.map((trail) => trail.map((pos) => ({ ...pos })))
+      );
+      frameRef.current = requestAnimationFrame(animate);
+    };
+
+    frameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      hero.removeEventListener("mousemove", handleMouseMove);
+      hero.removeEventListener("mouseenter", handleMouseEnter);
+      hero.removeEventListener("mouseleave", handleMouseLeave);
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, []);
+
+  const scrollToContent = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
 
   return (
-    <header className="hero" id="top">
-      <h1>
-        <span className="light">Olá, sou</span> <span className="accent">{accentName}</span>
-      </h1>
-      <p className="headline">{headline}</p>
-      <p className="lead">{bio}</p>
+    <section className="hero-fullscreen" ref={heroRef}>
+      <div className="hero-noise"></div>
+      <div className="hero-gradient"></div>
 
-      {icons.length > 0 && (
-        <div className="hero__icons">
-          {icons.map((icon) => (
-            <a key={icon.label} className="icon-btn" href={icon.href} target="_blank" rel="noreferrer" aria-label={icon.label}>
-              <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
-                {icon.svg}
-              </svg>
-            </a>
-          ))}
-        </div>
+      {glowTrails.map((trail, trailIndex) =>
+        trail.map((pos, index) => {
+          const depth = 1 - index / (trail.length + 1);
+          const opacity =
+            (trailIndex === 0 ? 0.7 : 0.42) * depth * (isHovering ? 1 : 0);
+          const scale = 0.7 + depth * 0.6;
+          const className =
+            trailIndex === 0
+              ? "hero-mouse-glow"
+              : trailIndex === 1 || trailIndex === 2
+                ? "hero-mouse-glow hero-mouse-glow--alt hero-mouse-glow--ghost"
+                : "hero-mouse-glow hero-mouse-glow--ghost";
+
+          return (
+            <div
+              key={`glow-${trailIndex}-${index}`}
+              className={className}
+              style={{
+                left: pos.x,
+                top: pos.y,
+                opacity,
+                transform: `translate(-50%, -50%) scale(${scale})`
+              }}
+            />
+          );
+        })
       )}
-    </header>
+
+      <div className="hero-content">
+        <p className="hero-greeting">Olá, eu sou</p>
+        <h1 className="hero-name">{name}</h1>
+      </div>
+
+      <button className="hero-scroll" onClick={scrollToContent} aria-label="Rolar para baixo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+        <span>Rolar</span>
+      </button>
+    </section>
   );
 }

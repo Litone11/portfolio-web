@@ -1,5 +1,6 @@
 import "./App.css";
 import Hero from "./components/Hero";
+import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
 import SkillsSection from "./components/SkillsSection";
 import Topbar from "./components/Topbar";
@@ -84,20 +85,10 @@ export default function App() {
         />
       </div>
 
-      <div className="page" id="top">
-        <section className="hero-grid">
-          <Hero
-            name={name}
-            headline={headline}
-            bio={bio}
-            email={profile.email}
-            github={profile.links?.github}
-            linkedin={profile.links?.linkedin}
-            primaryHref="#projects"
-            contactHref={contactHref}
-          />
-        </section>
+      <Hero name={name} />
 
+      <div className="page" id="about">
+        <AboutSection bio={bio} headline={headline} />
         <SkillsSection skills={skills} />
       </div>
     </>

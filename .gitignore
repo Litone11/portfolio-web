@@ -25,3 +25,6 @@ dist-ssr
 
 # Admin secret (não versionar)
 src/adminSecret.js
+
+/.claude
+/.claude/*

@@ -8,6 +8,12 @@ export const profile = {
     github: "https://github.com/Litone11",
     linkedin: "https://www.linkedin.com/in/luis-martins-874819238/",
   },
+  stats: [
+    { value: "3+", label: "Anos de Experiência", icon: "clock" },
+    { value: "9", label: "Projetos Académicos", icon: "folder" },
+    { value: "20+", label: "Tecnologias", icon: "code" },
+    { value: "100%", label: "Dedicação", icon: "star" },
+  ],
   skills: [
     // Linguagens
     "JavaScript",
