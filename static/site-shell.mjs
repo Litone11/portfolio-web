@@ -83,6 +83,21 @@ export function mountSiteNav() {
     window.__portfolioLanguageRefresh();
   }
 
+  // Back to top
+  const btt = document.createElement("button");
+  btt.className = "back-to-top";
+  btt.setAttribute("aria-label", "Voltar ao topo");
+  btt.innerHTML = "↑";
+  document.body.appendChild(btt);
+
+  window.addEventListener("scroll", () => {
+    btt.classList.toggle("is-visible", window.scrollY > 400);
+  }, { passive: true });
+
+  btt.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   const hamburger = document.querySelector("[data-hamburger]");
   const nav = hamburger?.closest(".site-nav");
 

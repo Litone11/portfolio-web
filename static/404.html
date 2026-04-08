@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Luís Martins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/site-shell.css" />
+    <link rel="stylesheet" href="/language-switch.css" />
+    <style>
+      .not-found-surface {
+        background:
+          radial-gradient(circle at top left, rgba(0, 218, 243, 0.1), transparent 32%),
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-color: var(--color-surface);
+        background-size: auto, 48px 48px, 48px 48px;
+      }
+
+      .not-found-page {
+        max-width: 1520px;
+        margin: 0 auto;
+        padding: 6rem 1.5rem 8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        min-height: calc(100svh - var(--site-nav-height) - 4rem);
+        justify-content: center;
+      }
+
+      .not-found-code {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .not-found-heading {
+        font-family: var(--font-headline);
+        font-size: clamp(5rem, 18vw, 14rem);
+        line-height: 0.88;
+        letter-spacing: -0.06em;
+        color: var(--color-white);
+      }
+
+      .not-found-heading span {
+        color: var(--color-primary);
+        text-shadow: 0 0 32px rgba(0, 218, 243, 0.2);
+      }
+
+      .not-found-msg {
+        max-width: 52ch;
+        font-size: 1.18rem;
+        line-height: 1.75;
+        color: var(--color-on-surface-variant);
+      }
+
+      .not-found-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .not-found-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 56px;
+        padding: 0 1.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: var(--font-headline);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: 180ms ease;
+      }
+
+      .not-found-btn-primary {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+        border-color: rgba(0, 218, 243, 0.18);
+        box-shadow: 0 0 24px rgba(0, 218, 243, 0.14);
+      }
+
+      .not-found-btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 28px rgba(0, 218, 243, 0.28);
+      }
+
+      .not-found-btn-secondary {
+        background: rgba(19, 31, 52, 0.84);
+        color: var(--color-white);
+      }
+
+      .not-found-btn-secondary:hover {
+        border-color: rgba(0, 218, 243, 0.4);
+        color: var(--color-primary);
+      }
+    </style>
+  </head>
+  <body data-page="404">
+    <div data-site-nav></div>
+
+    <main class="not-found-surface site-main-offset">
+      <div class="not-found-page">
+        <span class="not-found-code">ERROR_404 // PAGE_NOT_FOUND</span>
+        <h1 class="not-found-heading">4<span>0</span>4</h1>
+        <p class="not-found-msg">
+          A página que procuras não existe ou foi movida. Usa a navegação acima ou volta ao início.
+        </p>
+        <div class="not-found-actions">
+          <a href="/" class="not-found-btn not-found-btn-primary">Voltar ao Início</a>
+          <a href="/projects" class="not-found-btn not-found-btn-secondary">Ver Projetos</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">LUÍS <span>MARTINS</span></div>
+        <div class="site-footer__meta">© 2026 PORTFOLIO // 404</div>
+        <div class="site-footer__links">
+          <a href="https://github.com/Litone11" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/luis-martins-874819238/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="mailto:luis@luismartins.website">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { mountSiteNav } from "/site-shell.mjs";
+      mountSiteNav();
+    </script>
+    <script src="/language-switch.js" defer></script>
+  </body>
+</html>
