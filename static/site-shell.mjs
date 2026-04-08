@@ -37,14 +37,22 @@ export function renderSiteNav(currentPage = "") {
         <a href="/" class="site-nav__brand">
           Luis Martins
         </a>
-        <div class="site-nav__links">
-          ${navLinks}
-        </div>
         <div class="lang-toggle site-nav__lang" data-language-toggle data-current-lang="pt" aria-label="Language switch">
           <button type="button" class="lang-toggle__option" data-lang-option="pt" aria-pressed="true">PT</button>
           <button type="button" class="lang-toggle__option" data-lang-option="en" aria-pressed="false">EN</button>
           <span class="lang-toggle__thumb" aria-hidden="true"></span>
         </div>
+        <button
+          type="button"
+          class="site-nav__hamburger"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          data-hamburger
+        >
+          <span class="site-nav__hamburger-bar"></span>
+          <span class="site-nav__hamburger-bar"></span>
+          <span class="site-nav__hamburger-bar"></span>
+        </button>
         <a
           href="/curriculo.pdf"
           target="_blank"
@@ -54,6 +62,9 @@ export function renderSiteNav(currentPage = "") {
         >
           CV
         </a>
+      </div>
+      <div class="site-nav__links">
+        ${navLinks}
       </div>
     </nav>
   `;
@@ -70,5 +81,24 @@ export function mountSiteNav() {
 
   if (typeof window !== "undefined" && typeof window.__portfolioLanguageRefresh === "function") {
     window.__portfolioLanguageRefresh();
+  }
+
+  const hamburger = document.querySelector("[data-hamburger]");
+  const nav = hamburger?.closest(".site-nav");
+
+  if (hamburger && nav) {
+    hamburger.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("is-open");
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      document.body.style.overflow = isOpen ? "hidden" : "";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (nav.classList.contains("is-open") && !nav.contains(e.target)) {
+        nav.classList.remove("is-open");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+    });
   }
 }
