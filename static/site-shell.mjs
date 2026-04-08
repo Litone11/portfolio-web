@@ -54,9 +54,7 @@ export function renderSiteNav(currentPage = "") {
           <span class="site-nav__hamburger-bar"></span>
         </button>
         <a
-          href="/curriculo.pdf"
-          target="_blank"
-          rel="noreferrer"
+          href="/resume"
           class="site-nav__cv"
           data-i18n="nav.cv"
         >
