@@ -162,6 +162,9 @@
           en: "Two projects that best show the current range: a collaborative Flutter product and networking work with low-level communication.",
         },
       },
+      filter: {
+        all: { pt: "Todos", en: "All" },
+      },
       catalog: {
         kicker: { pt: "Índice de Projetos", en: "Project Index" },
         title: { pt: "Catálogo completo.", en: "Full catalog." },

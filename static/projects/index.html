@@ -410,6 +410,43 @@
         box-shadow: 0 0 28px rgba(0, 218, 243, 0.24);
       }
 
+      .projects-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .projects-filter-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.9rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(20, 32, 52, 0.7);
+        color: var(--color-on-surface-variant);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+      }
+
+      .projects-filter-btn:hover {
+        border-color: rgba(0, 218, 243, 0.35);
+        color: var(--color-primary);
+      }
+
+      .projects-filter-btn.is-active {
+        border-color: var(--color-primary);
+        background: rgba(0, 218, 243, 0.1);
+        color: var(--color-primary);
+      }
+
+      .projects-catalog-card.is-hidden {
+        display: none;
+      }
+
       @media (max-width: 1180px) {
         .projects-hero,
         .projects-featured-grid,
@@ -579,8 +616,19 @@
             </p>
           </div>
 
-          <div class="projects-catalog-grid">
-            <article class="projects-catalog-card" data-reveal>
+          <div class="projects-filters" id="projects-filters" role="group" aria-label="Filtrar por tecnologia">
+            <button class="projects-filter-btn is-active" data-filter="all" data-i18n="filter.all">Todos</button>
+            <button class="projects-filter-btn" data-filter="c++">C++</button>
+            <button class="projects-filter-btn" data-filter="c">C</button>
+            <button class="projects-filter-btn" data-filter="java">Java</button>
+            <button class="projects-filter-btn" data-filter="php">PHP</button>
+            <button class="projects-filter-btn" data-filter="algorithms">Algorithms</button>
+            <button class="projects-filter-btn" data-filter="systems">Systems</button>
+            <button class="projects-filter-btn" data-filter="web">Web</button>
+          </div>
+
+          <div class="projects-catalog-grid" id="projects-catalog">
+            <article class="projects-catalog-card" data-reveal data-tags="c++ svg">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -597,7 +645,7 @@
               <a class="projects-card-link" href="https://github.com/Litone11/FEUP-PROG-1" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
             </article>
 
-            <article class="projects-catalog-card" data-reveal>
+            <article class="projects-catalog-card" data-reveal data-tags="c++">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -613,7 +661,7 @@
               <a class="projects-card-link" href="https://github.com/Litone11/FEUP-PROG-2" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
             </article>
 
-            <article class="projects-catalog-card" data-reveal>
+            <article class="projects-catalog-card" data-reveal data-tags="java">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -630,7 +678,7 @@
               <a class="projects-card-link" href="https://github.com/Litone11/FEUP-LDTS" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
             </article>
 
-            <article class="projects-catalog-card" data-reveal>
+            <article class="projects-catalog-card" data-reveal data-tags="c++ algorithms">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -647,7 +695,7 @@
               <a class="projects-card-link" href="https://github.com/Litone11/FEUP-DA-1" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
             </article>
 
-            <article class="projects-catalog-card" data-reveal>
+            <article class="projects-catalog-card" data-reveal data-tags="c++ algorithms">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -664,7 +712,7 @@
               <a class="projects-card-link" href="https://github.com/Litone11/FEUP-DA-2" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
             </article>
 
-            <article class="projects-catalog-card" data-reveal>
+            <article class="projects-catalog-card" data-reveal data-tags="c systems">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -681,7 +729,7 @@
               <a class="projects-card-link" href="https://github.com/Litone11/FEUP-LCOM" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
             </article>
 
-            <article class="projects-catalog-card" data-reveal>
+            <article class="projects-catalog-card" data-reveal data-tags="php web">
               <div class="projects-catalog-head">
                 <div>
                   <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
@@ -732,5 +780,32 @@
     </script>
     <script src="/language-switch.js" defer></script>
     <script src="/scroll-reveal.js" defer></script>
+    <script>
+      (function () {
+        const filters = document.getElementById("projects-filters");
+        const catalog = document.getElementById("projects-catalog");
+        if (!filters || !catalog) return;
+
+        filters.addEventListener("click", function (e) {
+          const btn = e.target.closest("[data-filter]");
+          if (!btn) return;
+
+          const tag = btn.dataset.filter;
+
+          filters.querySelectorAll("[data-filter]").forEach(function (b) {
+            b.classList.toggle("is-active", b === btn);
+          });
+
+          catalog.querySelectorAll(".projects-catalog-card").forEach(function (card) {
+            if (tag === "all") {
+              card.classList.remove("is-hidden");
+            } else {
+              const tags = (card.dataset.tags || "").split(" ");
+              card.classList.toggle("is-hidden", !tags.includes(tag));
+            }
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
