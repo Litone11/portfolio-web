@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="meta.title">Luís Martins | Projetos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/site-shell.css" />
+    <link rel="stylesheet" href="/language-switch.css" />
+    <style>
+      .projects-surface {
+        background:
+          radial-gradient(circle at top left, rgba(0, 218, 243, 0.12), transparent 32%),
+          radial-gradient(circle at top right, rgba(173, 213, 0, 0.08), transparent 28%),
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-color: var(--color-surface);
+        background-size: auto, auto, 48px 48px, 48px 48px;
+      }
+
+      .projects-page {
+        max-width: 1520px;
+        margin: 0 auto;
+        padding: 3.5rem 1.5rem 6rem;
+      }
+
+      .projects-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .projects-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding-bottom: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .projects-kicker::after {
+        content: "";
+        display: block;
+        width: 96px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .projects-copy h1 {
+        max-width: 8ch;
+        font-family: var(--font-headline);
+        font-size: clamp(3.2rem, 8vw, 5.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+        color: var(--color-white);
+      }
+
+      .projects-copy p {
+        max-width: 720px;
+        margin-top: 2rem;
+        font-size: 1.18rem;
+        line-height: 1.75;
+        color: var(--color-on-surface-variant);
+      }
+
+      .projects-panel {
+        display: grid;
+        gap: 1rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(18, 30, 51, 0.96) 0%, rgba(11, 20, 37, 0.92) 100%);
+        box-shadow: 0 24px 50px -36px rgba(0, 0, 0, 0.65);
+      }
+
+      .projects-panel-label {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .projects-panel-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .projects-panel-item {
+        display: grid;
+        gap: 0.35rem;
+        padding-top: 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .projects-panel-item:nth-child(-n + 2) {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .projects-panel-key {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.54);
+      }
+
+      .projects-panel-value {
+        font-family: var(--font-headline);
+        font-size: 1.05rem;
+        line-height: 1.35;
+        color: var(--color-white);
+      }
+
+      .projects-section {
+        margin-top: 5rem;
+      }
+
+      .projects-section-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .projects-section-head h2 {
+        font-family: var(--font-headline);
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+        color: var(--color-white);
+      }
+
+      .projects-section-head p {
+        max-width: 620px;
+        color: var(--color-on-surface-variant);
+        line-height: 1.7;
+      }
+
+      .projects-featured-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+
+      .projects-card {
+        display: grid;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(16, 27, 48, 0.92);
+        overflow: hidden;
+      }
+
+      .projects-card-visual {
+        position: relative;
+        min-height: 248px;
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .projects-card-visual::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 24px 24px;
+        opacity: 0.5;
+      }
+
+      .projects-card-cyan .projects-card-visual {
+        background: radial-gradient(circle at top left, rgba(0, 218, 243, 0.18), transparent 55%), linear-gradient(135deg, #12203a 0%, #071327 100%);
+      }
+
+      .projects-card-lime .projects-card-visual {
+        background: radial-gradient(circle at top right, rgba(173, 213, 0, 0.16), transparent 50%), linear-gradient(135deg, #101b30 0%, #071327 100%);
+      }
+
+      .projects-card-visual-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100%;
+      }
+
+      .projects-card-visual-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      .projects-card-visual-title {
+        font-family: var(--font-headline);
+        font-size: 2.2rem;
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+        color: var(--color-white);
+      }
+
+      .projects-card-visual-copy {
+        max-width: 22rem;
+        margin-top: 0.9rem;
+        color: var(--color-on-surface-variant);
+        line-height: 1.65;
+      }
+
+      .projects-card-body {
+        display: grid;
+        gap: 1rem;
+        padding: 1.5rem;
+      }
+
+      .projects-card-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .projects-card-type {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .projects-card-head h3 {
+        margin-top: 0.55rem;
+        font-family: var(--font-headline);
+        font-size: 1.55rem;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--color-white);
+      }
+
+      .projects-card-link-icon {
+        color: var(--color-primary);
+        font-family: var(--font-headline);
+        font-size: 1.15rem;
+      }
+
+      .projects-card-body p {
+        color: var(--color-on-surface-variant);
+        line-height: 1.7;
+      }
+
+      .projects-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+
+      .projects-tag {
+        padding: 0.35rem 0.6rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(7, 19, 39, 0.7);
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant);
+      }
+
+      .projects-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-family: var(--font-headline);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+      }
+
+      .projects-card-link::after {
+        content: "";
+        width: 48px;
+        height: 1px;
+        background: currentColor;
+        transition: width 180ms ease;
+      }
+
+      .projects-card-link:hover::after {
+        width: 72px;
+      }
+
+      .projects-catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+
+      .projects-catalog-card {
+        display: grid;
+        gap: 1rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(20, 32, 52, 0.96) 0%, rgba(15, 27, 47, 0.92) 100%);
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .projects-catalog-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(0, 218, 243, 0.22);
+        box-shadow: 0 18px 38px -30px rgba(0, 218, 243, 0.35);
+      }
+
+      .projects-catalog-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .projects-catalog-head h3 {
+        margin-top: 0.55rem;
+        font-family: var(--font-headline);
+        font-size: 1.42rem;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--color-white);
+      }
+
+      .projects-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 2rem;
+        align-items: center;
+        margin-top: 5rem;
+        padding: 1.8rem 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(16, 27, 48, 0.9);
+      }
+
+      .projects-cta h2 {
+        font-family: var(--font-headline);
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+        color: var(--color-white);
+      }
+
+      .projects-cta p {
+        margin-top: 0.8rem;
+        color: var(--color-on-surface-variant);
+        line-height: 1.7;
+      }
+
+      .projects-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 56px;
+        padding: 0 1.5rem;
+        border: 1px solid rgba(0, 218, 243, 0.18);
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+        font-family: var(--font-headline);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        box-shadow: 0 0 24px rgba(0, 218, 243, 0.14);
+        transition: 180ms ease;
+      }
+
+      .projects-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 28px rgba(0, 218, 243, 0.24);
+      }
+
+      @media (max-width: 1180px) {
+        .projects-hero,
+        .projects-featured-grid,
+        .projects-catalog-grid,
+        .projects-cta {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .projects-page {
+          padding: 2.5rem 1rem 4rem;
+        }
+
+        .projects-copy p,
+        .projects-section-head p,
+        .projects-card-visual-copy,
+        .projects-card-body p,
+        .projects-cta p {
+          font-size: 1rem;
+        }
+
+        .projects-panel-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .projects-panel-item {
+          padding-top: 0.9rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .projects-panel-item:nth-child(2) {
+          padding-top: 0.9rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .projects-panel-item:first-child {
+          padding-top: 0;
+          border-top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="projects">
+    <div data-site-nav></div>
+
+    <main class="projects-surface site-main-offset">
+      <div class="projects-page">
+        <section class="projects-hero">
+          <div class="projects-copy">
+            <span class="projects-kicker" data-i18n="hero.kicker">Selected_Works</span>
+            <h1 data-i18n="hero.title">Projetos em destaque</h1>
+            <p data-i18n="hero.description">
+              Todos os projetos têm código publicado no GitHub. Cada entrada mostra o contexto, a stack utilizada e link direto para o repositório.
+            </p>
+          </div>
+
+          <aside class="projects-panel">
+            <div class="projects-panel-label" data-i18n="panel.label">Project Matrix</div>
+            <div class="projects-panel-grid">
+              <div class="projects-panel-item">
+                <div class="projects-panel-key" data-i18n="panel.totalLabel">Total</div>
+                <div class="projects-panel-value" data-i18n="panel.totalValue">9 projetos públicos</div>
+              </div>
+              <div class="projects-panel-item">
+                <div class="projects-panel-key" data-i18n="panel.scopeLabel">Âmbito</div>
+                <div class="projects-panel-value" data-i18n="panel.scopeValue">Algoritmos, web, mobile e sistemas</div>
+              </div>
+              <div class="projects-panel-item">
+                <div class="projects-panel-key" data-i18n="panel.stackLabel">Stack</div>
+                <div class="projects-panel-value" data-i18n="panel.stackValue">C, C++, Java, Flutter, PHP</div>
+              </div>
+              <div class="projects-panel-item">
+                <div class="projects-panel-key" data-i18n="panel.accessLabel">Acesso</div>
+                <div class="projects-panel-value" data-i18n="panel.accessValue">Todos com repositório direto</div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="projects-section">
+          <div class="projects-section-head">
+            <div>
+              <p class="projects-panel-label" data-i18n="featured.kicker">Featured Build Set</p>
+              <h2 data-i18n="featured.title">Projetos com mais amplitude técnica.</h2>
+            </div>
+            <p data-i18n="featured.description">
+              Dois projetos que mostram melhor o teu alcance atual: produto colaborativo em Flutter e trabalho de redes com comunicação de baixo nível.
+            </p>
+          </div>
+
+          <div class="projects-featured-grid">
+            <article class="projects-card projects-card-cyan">
+              <div class="projects-card-visual">
+                <div class="projects-card-visual-content">
+                  <div class="projects-card-visual-meta">
+                    <span data-i18n="hero.type">Projeto Académico</span>
+                    <span>Flutter / Dart</span>
+                  </div>
+                  <div>
+                    <div class="projects-card-visual-title">TaskMate</div>
+                    <p class="projects-card-visual-copy" data-i18n="cards.taskmate.desc">
+                      Aplicação de gestão de tarefas e colaboração que permite criar, organizar e partilhar tarefas com notificações, integração de calendário e funcionalidades de colaboração em grupo.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="projects-card-body">
+                <div class="projects-card-head">
+                  <div>
+                    <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                    <h3>TaskMate</h3>
+                  </div>
+                  <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-ESOF" target="_blank" rel="noreferrer">↗</a>
+                </div>
+                <div class="projects-tags">
+                  <span class="projects-tag">Flutter</span>
+                  <span class="projects-tag">Dart</span>
+                  <span class="projects-tag">Firebase</span>
+                </div>
+                <a class="projects-card-link" href="https://github.com/Litone11/FEUP-ESOF" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+              </div>
+            </article>
+
+            <article class="projects-card projects-card-lime">
+              <div class="projects-card-visual">
+                <div class="projects-card-visual-content">
+                  <div class="projects-card-visual-meta">
+                    <span data-i18n="hero.type">Projeto Académico</span>
+                    <span>C / Sockets</span>
+                  </div>
+                  <div>
+                    <div class="projects-card-visual-title">Virtual Cable</div>
+                    <p class="projects-card-visual-copy" data-i18n="cards.cable.desc">
+                      Projeto de redes de computadores que implementa um programa de cabo virtual para testar portos seriais, criando pares de portos TX/RX virtuais usando sockets.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="projects-card-body">
+                <div class="projects-card-head">
+                  <div>
+                    <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                    <h3>Virtual Cable</h3>
+                  </div>
+                  <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-RCOM" target="_blank" rel="noreferrer">↗</a>
+                </div>
+                <div class="projects-tags">
+                  <span class="projects-tag">C</span>
+                  <span class="projects-tag">Sockets</span>
+                  <span class="projects-tag">Serial Communication</span>
+                </div>
+                <a class="projects-card-link" href="https://github.com/Litone11/FEUP-RCOM" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="projects-section">
+          <div class="projects-section-head">
+            <div>
+              <p class="projects-panel-label" data-i18n="catalog.kicker">Project Index</p>
+              <h2 data-i18n="catalog.title">Catálogo completo.</h2>
+            </div>
+            <p data-i18n="catalog.description">
+              O resto do conjunto mostra trabalho consistente em algoritmos, motores em C++, jogo em Java, sistemas web e programação de baixo nível.
+            </p>
+          </div>
+
+          <div class="projects-catalog-grid">
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>SVG to PNG Converter</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-PROG-1" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.svg.desc">Programa em C++ que converte ficheiros SVG em imagens PNG, com suporte para transformações geométricas, grupos e duplicação de elementos.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">C++</span>
+                <span class="projects-tag">SVG</span>
+                <span class="projects-tag">PNG</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-PROG-1" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>Image Processing</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-PROG-2" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.image.desc">Projeto de processamento de scrims em C++ que lê ficheiros de configuração, executa operações de transformação em imagens através de um parser e gera resultados.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">C++</span>
+                <span class="projects-tag">Image Processing</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-PROG-2" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>The Invaders</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-LDTS" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.invaders.desc">Jogo de arcade retro desenvolvido em Java com diferentes temas, implementando padrões de design, menus, sistema de pontuação e mecânicas de jogo clássicas.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">Java</span>
+                <span class="projects-tag">Design Patterns</span>
+                <span class="projects-tag">Lanterna</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-LDTS" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>Graph Routing</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-DA-1" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.graph.desc">Projeto de algoritmos e estruturas de dados que implementa um grafo para resolver problemas de rotas e localizações, com suporte para leitura de ficheiros CSV e processamento de rotas.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">C++</span>
+                <span class="projects-tag">Algorithms</span>
+                <span class="projects-tag">Data Structures</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-DA-1" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>Knapsack Problem</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-DA-2" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.knapsack.desc">Projeto que implementa algoritmos para resolver o Problema da Mochila com múltiplas abordagens: força bruta, programação dinâmica, algoritmos gulosos e soluções baseadas em ILP.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">C++</span>
+                <span class="projects-tag">Dynamic Programming</span>
+                <span class="projects-tag">ILP</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-DA-2" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>Minix Game</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-LCOM" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.minix.desc">Projeto de laboratório que implementa um jogo em C com Minix, contendo componentes para dispositivos, entidades, lógica de jogo e gestão de eventos.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">C</span>
+                <span class="projects-tag">Minix</span>
+                <span class="projects-tag">Low-level Programming</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-LCOM" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+
+            <article class="projects-catalog-card">
+              <div class="projects-catalog-head">
+                <div>
+                  <div class="projects-card-type" data-i18n="hero.type">Projeto Académico</div>
+                  <h3>Freelancing Platform</h3>
+                </div>
+                <a class="projects-card-link-icon" href="https://github.com/Litone11/FEUP-LTW" target="_blank" rel="noreferrer">↗</a>
+              </div>
+              <p data-i18n="cards.freelance.desc">Plataforma web em PHP que implementa um sistema de gestão de utilizadores com autenticação, controlo de sessões e base de dados integrada.</p>
+              <div class="projects-tags">
+                <span class="projects-tag">PHP</span>
+                <span class="projects-tag">MySQL</span>
+                <span class="projects-tag">HTML/CSS</span>
+                <span class="projects-tag">JavaScript</span>
+              </div>
+              <a class="projects-card-link" href="https://github.com/Litone11/FEUP-LTW" target="_blank" rel="noreferrer" data-i18n="cards.open">Abrir Repo</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="projects-cta">
+          <div>
+            <h2 data-i18n="cta.title">Se um projeto te interessa, o repositório está aberto.</h2>
+            <p data-i18n="cta.description">
+              Posso aprofundar qualquer um destes projetos em detalhe técnico. Se quiseres falar sobre implementação, decisões ou contexto, segue para a página de contacto.
+            </p>
+          </div>
+          <a class="projects-btn" href="/contact" data-i18n="cta.button">Abrir Contacto</a>
+        </section>
+      </div>
+    </main>
+
+    <footer class="w-full border-t border-white/5 bg-surface-lowest py-12">
+      <div class="mx-auto flex max-w-screen-2xl flex-col items-center justify-between gap-6 px-6 md:flex-row md:px-12">
+        <div class="font-headline font-bold uppercase tracking-[0.2em] text-white">
+          LUÍS <span class="text-tertiary">MARTINS</span>
+        </div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-on-surface-variant" data-i18n="footer.section">
+          © 2026 PORTFOLIO // PROJECTS
+        </div>
+        <div class="flex gap-8 font-mono text-[10px] uppercase tracking-widest">
+          <a class="text-on-surface-variant transition-colors hover:text-tertiary" href="https://github.com/Litone11" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="text-on-surface-variant transition-colors hover:text-tertiary" href="https://www.linkedin.com/in/luis-martins-874819238/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="text-tertiary transition-colors hover:text-white" href="mailto:luis@luismartins.website">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { mountSiteNav } from "/site-shell.mjs";
+      mountSiteNav();
+    </script>
+    <script src="/language-switch.js" defer></script>
+  </body>
+</html>

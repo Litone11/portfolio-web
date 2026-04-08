@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="meta.title">Luís Martins | Sobre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/site-shell.css" />
+    <link rel="stylesheet" href="/language-switch.css" />
+    <style>
+      .about-surface {
+        background:
+          radial-gradient(circle at top left, rgba(0, 218, 243, 0.12), transparent 32%),
+          radial-gradient(circle at top right, rgba(173, 213, 0, 0.08), transparent 28%),
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-color: var(--color-surface);
+        background-size: auto, auto, 48px 48px, 48px 48px;
+      }
+
+      .about-page {
+        max-width: 1520px;
+        margin: 0 auto;
+        padding: 3.5rem 1.5rem 6rem;
+      }
+
+      .about-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.95fr);
+        gap: 3rem;
+        align-items: stretch;
+      }
+
+      .about-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding-bottom: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .about-kicker::after {
+        content: "";
+        display: block;
+        width: 96px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .about-copy h1 {
+        max-width: 8ch;
+        font-family: var(--font-headline);
+        font-size: clamp(3.4rem, 8vw, 5.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+        color: var(--color-white);
+      }
+
+      .about-copy h1 span {
+        color: var(--color-primary);
+        text-shadow: 0 0 24px rgba(0, 218, 243, 0.18);
+      }
+
+      .about-copy p {
+        max-width: 720px;
+        margin-top: 2rem;
+        font-size: 1.22rem;
+        line-height: 1.75;
+        color: var(--color-on-surface-variant);
+      }
+
+      .about-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+
+      .about-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        min-height: 56px;
+        padding: 0 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: var(--font-headline);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: 180ms ease;
+      }
+
+      .about-btn-primary {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+        border-color: rgba(0, 218, 243, 0.18);
+        box-shadow: 0 0 24px rgba(0, 218, 243, 0.14);
+      }
+
+      .about-btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 28px rgba(0, 218, 243, 0.24);
+      }
+
+      .about-btn-secondary {
+        background: rgba(19, 31, 52, 0.84);
+        color: var(--color-white);
+      }
+
+      .about-btn-secondary:hover {
+        border-color: rgba(0, 218, 243, 0.45);
+        color: var(--color-primary);
+      }
+
+      .about-inline-note {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.85rem;
+        margin-top: 1.5rem;
+        font-family: var(--font-headline);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .about-inline-note strong {
+        color: var(--color-tertiary);
+      }
+
+      .about-frame {
+        position: relative;
+        min-height: 620px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 22px;
+        background:
+          radial-gradient(circle at 18% 14%, rgba(0, 218, 243, 0.12), transparent 18%),
+          linear-gradient(180deg, rgba(7, 19, 39, 0.86), rgba(7, 19, 39, 0.98)),
+          #0c1730;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+      }
+
+      .about-frame::before {
+        content: "";
+        position: absolute;
+        top: 32px;
+        left: 0;
+        width: 4px;
+        height: 96px;
+        background: var(--color-primary);
+        box-shadow: 0 0 18px rgba(0, 218, 243, 0.45);
+      }
+
+      .about-frame img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        filter: grayscale(1) saturate(0.7) contrast(1.08) brightness(0.7);
+        mix-blend-mode: luminosity;
+        opacity: 0.92;
+      }
+
+      .about-frame-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(7, 19, 39, 0.14), rgba(7, 19, 39, 0.48)),
+          linear-gradient(90deg, rgba(7, 19, 39, 0.1), rgba(7, 19, 39, 0.28));
+      }
+
+      .about-avatar-tag,
+      .about-latency {
+        position: absolute;
+        z-index: 1;
+        backdrop-filter: blur(10px);
+      }
+
+      .about-avatar-tag {
+        top: 1.2rem;
+        right: 1.2rem;
+        padding: 0.8rem 0.9rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 24, 42, 0.64);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .about-latency {
+        right: -22px;
+        bottom: -22px;
+        padding: 1.25rem 1.6rem;
+        background: rgba(42, 53, 75, 0.92);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+      }
+
+      .about-latency span {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .about-latency strong {
+        display: block;
+        margin-top: 0.65rem;
+        font-family: var(--font-headline);
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--color-white);
+      }
+
+      .about-grid-two,
+      .about-grid-dual {
+        display: grid;
+        gap: 1.5rem;
+        margin-top: 4rem;
+      }
+
+      .about-grid-two {
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.55fr);
+      }
+
+      .about-grid-dual {
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+      }
+
+      .about-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 100%;
+        padding: 2.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(16, 27, 48, 0.94);
+      }
+
+      .about-card-title-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .about-card-title-row h2 {
+        font-size: clamp(2rem, 3vw, 3.2rem);
+        line-height: 1;
+        color: var(--color-white);
+      }
+
+      .about-card-title-row span {
+        margin-top: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      .about-journey {
+        position: relative;
+        padding-left: 2.7rem;
+      }
+
+      .about-journey::before {
+        content: "";
+        position: absolute;
+        top: 0.3rem;
+        bottom: 0.3rem;
+        left: 0.72rem;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      .about-journey-item {
+        position: relative;
+        padding-bottom: 2.5rem;
+      }
+
+      .about-journey-item:last-child {
+        padding-bottom: 0;
+      }
+
+      .about-journey-item::before {
+        content: "";
+        position: absolute;
+        top: 0.32rem;
+        left: -2rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: var(--color-primary);
+        box-shadow: 0 0 12px rgba(0, 218, 243, 0.6);
+      }
+
+      .about-journey-item:nth-child(2)::before,
+      .about-journey-item:nth-child(3)::before {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+      }
+
+      .about-journey-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .about-journey-head h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-white);
+      }
+
+      .about-journey-head span {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .about-journey-source {
+        margin-top: 0.5rem;
+        font-family: var(--font-headline);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+      }
+
+      .about-journey-item p {
+        margin-top: 1rem;
+        max-width: 680px;
+        font-size: 1.06rem;
+        line-height: 1.75;
+        color: var(--color-on-surface-variant);
+      }
+
+      .about-education {
+        border-left: 4px solid var(--color-tertiary);
+      }
+
+      .about-mini-kicker {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .about-education h2 {
+        margin-top: 1rem;
+        font-size: clamp(2.1rem, 3vw, 3.1rem);
+        line-height: 1.02;
+        color: var(--color-white);
+      }
+
+      .about-education .about-degree {
+        margin-top: 2rem;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--color-white);
+      }
+
+      .about-education .about-school {
+        margin-top: 0.5rem;
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .about-education .about-chip {
+        display: inline-flex;
+        margin-top: 1rem;
+        padding: 0.5rem 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .about-education h3 {
+        margin-top: 2.4rem;
+        font-family: var(--font-mono);
+        font-size: 0.84rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-tertiary);
+      }
+
+      .about-education ul {
+        margin-top: 1rem;
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .about-education li {
+        position: relative;
+        padding-left: 1.15rem;
+        font-size: 1.02rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .about-education li::before {
+        content: "";
+        position: absolute;
+        top: 0.66rem;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: var(--color-tertiary);
+      }
+
+      .about-section-title {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .about-section-title h2 {
+        font-size: clamp(2rem, 3vw, 3.1rem);
+        color: var(--color-white);
+      }
+
+      .about-section-title::after {
+        content: "";
+        width: 48px;
+        height: 2px;
+        background: var(--color-primary);
+      }
+
+      .about-stack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .about-stack-item {
+        min-height: 128px;
+        padding: 1.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(20, 32, 52, 0.92);
+      }
+
+      .about-stack-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 218, 243, 0.24);
+        background: rgba(0, 218, 243, 0.1);
+        font-family: var(--font-headline);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+      }
+
+      .about-stack-item h3 {
+        margin-top: 1rem;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-white);
+      }
+
+      .about-stack-item p {
+        margin-top: 0.6rem;
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        line-height: 1.65;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      .about-strengths {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .about-strength-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 1.25rem;
+        align-items: center;
+        padding: 1.45rem 1.5rem;
+        border-left: 3px solid var(--color-primary);
+        background: rgba(20, 32, 52, 0.92);
+      }
+
+      .about-strength-item:nth-child(2) {
+        border-left-color: var(--color-tertiary);
+      }
+
+      .about-strength-badge {
+        width: 52px;
+        height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 218, 243, 0.1);
+        font-family: var(--font-headline);
+        font-weight: 700;
+        color: var(--color-primary);
+      }
+
+      .about-strength-item:nth-child(2) .about-strength-badge {
+        background: rgba(173, 213, 0, 0.12);
+        color: var(--color-tertiary);
+      }
+
+      .about-strength-item h3 {
+        font-size: 1.55rem;
+        color: var(--color-white);
+      }
+
+      .about-strength-item p {
+        margin-top: 0.35rem;
+        font-size: 0.94rem;
+        line-height: 1.7;
+        color: var(--color-on-surface-variant);
+      }
+
+      .about-strength-item span {
+        padding: 0.55rem 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .about-values {
+        display: grid;
+        grid-template-columns: minmax(260px, 1.1fr) minmax(0, 1fr) minmax(0, 1fr);
+        gap: 2rem;
+        align-items: start;
+        margin-top: 4rem;
+        padding: 3rem;
+        background: rgba(3, 14, 34, 0.96);
+      }
+
+      .about-values-intro h2 {
+        font-size: clamp(2.2rem, 3vw, 3.2rem);
+        font-style: italic;
+        color: var(--color-white);
+      }
+
+      .about-values-intro p {
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.85;
+        color: var(--color-on-surface-variant);
+      }
+
+      .about-values-list {
+        display: grid;
+        gap: 1.6rem;
+      }
+
+      .about-values-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 1rem;
+      }
+
+      .about-values-item strong {
+        display: block;
+        font-size: 1.3rem;
+        color: var(--color-white);
+      }
+
+      .about-values-item p {
+        margin-top: 0.55rem;
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--color-on-surface-variant);
+      }
+
+      .about-values-mark {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-top: 0.2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--color-tertiary);
+      }
+
+      @media (max-width: 1180px) {
+        .about-hero,
+        .about-grid-two,
+        .about-grid-dual,
+        .about-values {
+          grid-template-columns: 1fr;
+        }
+
+        .about-frame {
+          min-height: 540px;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .about-page {
+          padding: 2rem 1rem 4rem;
+        }
+
+        .about-card,
+        .about-values {
+          padding: 1.6rem;
+        }
+
+        .about-copy p {
+          font-size: 1rem;
+        }
+
+        .about-journey {
+          padding-left: 2rem;
+        }
+
+        .about-journey-item::before {
+          left: -1.5rem;
+        }
+
+        .about-stack-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .about-strength-item {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+
+        .about-latency {
+          right: 1rem;
+          bottom: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="about">
+    <div data-site-nav></div>
+
+    <main class="about-surface site-main-offset">
+      <div class="about-page">
+        <section class="about-hero">
+          <div class="about-copy">
+            <div class="about-kicker" data-i18n="hero.kicker">SYSTEM_STATUS: ACTIVE</div>
+            <h1 data-i18n-html="hero.title">Informatics <span>Engineer</span> &amp; Software Builder.</h1>
+            <p data-i18n="hero.description">
+              Sou o Luís Martins, estudante de Engenharia Informática na FEUP, com foco em construir software sólido entre web, mobile, algoritmos, sistemas e redes. Este portfólio junta o lado académico com execução prática e código publicado.
+            </p>
+
+            <div class="about-actions">
+              <a href="/curriculo.pdf" target="_blank" rel="noreferrer" class="about-btn about-btn-primary" data-i18n="hero.primaryCta">
+                Descarregar CV
+              </a>
+              <a href="/projects" class="about-btn about-btn-secondary" data-i18n="hero.secondaryCta">Ver Projetos</a>
+            </div>
+
+            <div class="about-inline-note" data-i18n-html="hero.note">
+              <strong>9 projetos públicos</strong><span>stack transversal em software engineering</span>
+            </div>
+          </div>
+
+          <aside class="about-frame">
+            <div class="about-avatar-tag" data-i18n="hero.profileTag">Luis_Martins // Profile</div>
+            <img src="https://github.com/Litone11.png?size=800" alt="Retrato de Luís Martins" />
+            <div class="about-frame-overlay"></div>
+            <div class="about-latency">
+              <span data-i18n="hero.focusLabel">Focus_Area</span>
+              <strong data-i18n="hero.focusValue">full-stack</strong>
+            </div>
+          </aside>
+        </section>
+
+        <section class="about-grid-two">
+          <article class="about-card">
+            <div class="about-card-title-row">
+              <h2 data-i18n="journey.title">Academic_Journey</h2>
+              <span data-i18n="journey.trail">ROOT/LEARNING/LOGS</span>
+            </div>
+
+            <div class="about-journey">
+              <div class="about-journey-item">
+                <div class="about-journey-head">
+                  <h3 data-i18n="journey.firstTitle">Engenharia Informática</h3>
+                  <span data-i18n="journey.firstStatus">ONGOING</span>
+                </div>
+                <div class="about-journey-source" data-i18n="journey.firstSource">FEUP</div>
+                <p data-i18n="journey.firstDesc">
+                  Percurso académico centrado em fundamentos de engenharia de software, algoritmos, estruturas de dados, redes, low-level programming e construção de aplicações.
+                </p>
+              </div>
+
+              <div class="about-journey-item">
+                <div class="about-journey-head">
+                  <h3 data-i18n="journey.secondTitle">Projetos práticos</h3>
+                  <span data-i18n="journey.secondStatus">9 REPOS</span>
+                </div>
+                <div class="about-journey-source" data-i18n="journey.secondSource">GitHub Portfolio</div>
+                <p data-i18n="journey.secondDesc">
+                  Os teus repositórios mostram variedade real: C e C++ para sistemas e algoritmos, Java para jogo arcade, Flutter para mobile, PHP para web e C para redes e Minix.
+                </p>
+              </div>
+
+              <div class="about-journey-item">
+                <div class="about-journey-head">
+                  <h3 data-i18n="journey.thirdTitle">Direção atual</h3>
+                  <span data-i18n="journey.thirdStatus">NOW</span>
+                </div>
+                <div class="about-journey-source" data-i18n="journey.thirdSource">Portfolio + Product Thinking</div>
+                <p data-i18n="journey.thirdDesc">
+                  O foco atual está em aprofundar competências em sistemas, web e mobile, construir projetos mais complexos e entrar no mercado com experiência prática e código real publicado.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="about-card about-education">
+            <div class="about-mini-kicker" data-i18n="education.kicker">ACADEMIC_PATH</div>
+            <h2 data-i18n="education.title">Education</h2>
+            <div class="about-degree" data-i18n="education.degree">Licenciatura em Engenharia Informática</div>
+            <div class="about-school" data-i18n="education.school">Faculdade de Engenharia da Universidade do Porto</div>
+            <div class="about-chip" data-i18n="education.chip">Porto // FEUP</div>
+
+            <h3 data-i18n="education.coreTitle">Core modules</h3>
+            <ul>
+              <li data-i18n="education.module1">Algoritmos e estruturas de dados</li>
+              <li data-i18n="education.module2">Sistemas, programação em C e C++</li>
+              <li data-i18n="education.module3">Desenvolvimento web e mobile</li>
+              <li data-i18n="education.module4">Redes de computadores e comunicação</li>
+              <li data-i18n="education.module5">Software engineering e trabalho em equipa</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="about-grid-dual">
+          <article class="about-card">
+            <div class="about-section-title">
+              <h2 data-i18n="stack.title">Tech_Stack</h2>
+            </div>
+
+            <div class="about-stack-grid">
+              <div class="about-stack-item">
+                <div class="about-stack-icon">web</div>
+                <h3 data-i18n="stack.frontend">Frontend</h3>
+                <p>React Next.js Tailwind HTML CSS JavaScript</p>
+              </div>
+
+              <div class="about-stack-item">
+                <div class="about-stack-icon">app</div>
+                <h3 data-i18n="stack.mobile">Mobile</h3>
+                <p>Flutter Dart Firebase iOS oriented workflow</p>
+              </div>
+
+              <div class="about-stack-item">
+                <div class="about-stack-icon">sys</div>
+                <h3 data-i18n="stack.systems">Systems</h3>
+                <p>C C++ Minix algorithms low-level programming</p>
+              </div>
+
+              <div class="about-stack-item">
+                <div class="about-stack-icon">db</div>
+                <h3 data-i18n="stack.data">Data</h3>
+                <p>SQL PostgreSQL MongoDB parsing data handling</p>
+              </div>
+
+              <div class="about-stack-item">
+                <div class="about-stack-icon">api</div>
+                <h3 data-i18n="stack.backend">Backend</h3>
+                <p>Node.js REST APIs PHP authentication sessions</p>
+              </div>
+
+              <div class="about-stack-item">
+                <div class="about-stack-icon">ops</div>
+                <h3 data-i18n="stack.tooling">Tooling</h3>
+                <p>Git Docker Linux CI CD collaborative delivery</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="about-card">
+            <div class="about-section-title">
+              <h2 data-i18n="strengths.title">Highlighted_Strengths</h2>
+            </div>
+
+            <div class="about-strengths">
+              <div class="about-strength-item">
+                <div class="about-strength-badge">01</div>
+                <div>
+                  <h3 data-i18n="strengths.firstTitle">Amplitude técnica</h3>
+                  <p data-i18n="strengths.firstDesc">
+                    O meu conjunto de projetos cobre frontend, mobile, backend, algoritmos, redes e sistemas — uma base mais completa do que um percurso centrado numa única stack.
+                  </p>
+                </div>
+                <span data-i18n="strengths.firstTag">ACTIVE</span>
+              </div>
+
+              <div class="about-strength-item">
+                <div class="about-strength-badge">02</div>
+                <div>
+                  <h3 data-i18n="strengths.secondTitle">Base de engenharia</h3>
+                  <p data-i18n="strengths.secondDesc">
+                    Tenho experiência com programação em C/C++, resolução de problemas clássicos, comunicação série, grafos, parsing e organização de software por módulos.
+                  </p>
+                </div>
+                <span data-i18n="strengths.secondTag">FOUNDATION</span>
+              </div>
+
+              <div class="about-strength-item">
+                <div class="about-strength-badge">03</div>
+                <div>
+                  <h3 data-i18n="strengths.thirdTitle">Entrega orientada a produto</h3>
+                  <p data-i18n="strengths.thirdDesc">
+                    Cada projeto foi entregue com código publicado e repositório aberto. Não fico pela teoria — executo até ao fim e deixo tudo acessível.
+                  </p>
+                </div>
+                <span data-i18n="strengths.thirdTag">SHIP</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="about-values about-card">
+          <div class="about-values-intro">
+            <h2 data-i18n="values.title">Working_Mode</h2>
+            <p data-i18n="values.intro">
+              Interessa-me software que funcione bem, seja legível e tenha uma razão clara para existir. O objetivo aqui não é parecer senior artificialmente; é mostrar evolução real, consistência técnica e capacidade de executar.
+            </p>
+          </div>
+
+          <div class="about-values-list">
+            <div class="about-values-item">
+              <div class="about-values-mark">A</div>
+              <div>
+                <strong data-i18n="values.firstTitle">Build with range</strong>
+                <p data-i18n="values.firstDesc">Web, mobile, sistemas e redes convivem no mesmo portfólio porque refletem a minha formação real e a amplitude do que já construí.</p>
+              </div>
+            </div>
+
+            <div class="about-values-item">
+              <div class="about-values-mark">B</div>
+              <div>
+                <strong data-i18n="values.secondTitle">Prefer concrete work</strong>
+                <p data-i18n="values.secondDesc">Projetos publicados, links diretos e linguagem objetiva valem mais do que claims vagas ou buzzwords.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-values-list">
+            <div class="about-values-item">
+              <div class="about-values-mark">C</div>
+              <div>
+                <strong data-i18n="values.thirdTitle">Keep improving the layer on top</strong>
+                <p data-i18n="values.thirdDesc">Além de código, importa saber apresentar bem o trabalho: estrutura, copy, navegação e clareza visual.</p>
+              </div>
+            </div>
+
+            <div class="about-values-item">
+              <div class="about-values-mark">D</div>
+              <div>
+                <strong data-i18n="values.fourthTitle">Ready for collaboration</strong>
+                <p data-i18n="values.fourthDesc">Estou disponível para estágios, colaboração em projetos e conversas técnicas. Os canais diretos estão todos na página de contacto.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="w-full border-t border-white/5 bg-surface-lowest py-12">
+      <div class="mx-auto flex max-w-screen-2xl flex-col items-center justify-between gap-6 px-6 md:flex-row md:px-12">
+        <div class="font-headline font-bold uppercase tracking-[0.2em] text-white">
+          LUÍS <span class="text-tertiary">MARTINS</span>
+        </div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-on-surface-variant" data-i18n="footer.section">
+          © 2026 PORTFOLIO // ABOUT
+        </div>
+        <div class="flex gap-8 font-mono text-[10px] uppercase tracking-widest">
+          <a class="text-on-surface-variant transition-colors hover:text-tertiary" href="https://github.com/Litone11" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="text-on-surface-variant transition-colors hover:text-tertiary" href="https://www.linkedin.com/in/luis-martins-874819238/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="text-tertiary transition-colors hover:text-white" href="mailto:luis@luismartins.website">Email</a>
+        </div>
+      </div>
+    </footer>
+    <script type="module">
+      import { mountSiteNav } from "/site-shell.mjs";
+      mountSiteNav();
+    </script>
+    <script src="/language-switch.js" defer></script>
+  </body>
+</html>
