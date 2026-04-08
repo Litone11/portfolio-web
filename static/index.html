@@ -303,6 +303,13 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
         background: rgba(16, 27, 48, 0.92);
         overflow: hidden;
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .home-project:hover {
+        transform: translateY(-4px);
+        border-color: rgba(0, 218, 243, 0.22);
+        box-shadow: 0 20px 40px -28px rgba(0, 218, 243, 0.35);
       }
 
       .home-project-visual {
@@ -450,6 +457,10 @@
         .home-project-grid,
         .home-cta {
           grid-template-columns: 1fr;
+        }
+
+        .home-cta a {
+          justify-self: start;
         }
 
         .home-hero {
