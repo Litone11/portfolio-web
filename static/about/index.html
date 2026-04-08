@@ -174,17 +174,16 @@
         height: 100%;
         object-fit: cover;
         object-position: center top;
-        filter: grayscale(1) saturate(0.7) contrast(1.08) brightness(0.7);
-        mix-blend-mode: luminosity;
-        opacity: 0.92;
+        filter: grayscale(0.4) saturate(0.85) contrast(1.05) brightness(0.88);
+        opacity: 0.96;
       }
 
       .about-frame-overlay {
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(180deg, rgba(7, 19, 39, 0.14), rgba(7, 19, 39, 0.48)),
-          linear-gradient(90deg, rgba(7, 19, 39, 0.1), rgba(7, 19, 39, 0.28));
+          linear-gradient(180deg, transparent, rgba(7, 19, 39, 0.3)),
+          linear-gradient(90deg, transparent, rgba(7, 19, 39, 0.12));
       }
 
       .about-avatar-tag,

@@ -334,7 +334,16 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-height: 100%;
+        height: 100%;
+        min-height: 200px;
+      }
+
+      .home-project-visual-footer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: auto;
       }
 
       .home-project-visual-label {
@@ -569,19 +578,13 @@
               <div class="home-project-visual">
                 <div class="home-project-visual-content">
                   <div class="home-project-visual-label">Flutter App</div>
-                  <div>
+                  <div class="home-project-visual-footer">
                     <div class="home-project-visual-title">TaskMate</div>
-                    <p class="home-project-visual-copy" data-i18n="projects.taskmateTeaser">
-                      Gestão de tarefas, planeamento partilhado, notificações e integração de calendário.
-                    </p>
+                    <a class="home-project-link" href="https://github.com/Litone11/FEUP-ESOF" target="_blank" rel="noreferrer">↗</a>
                   </div>
                 </div>
               </div>
               <div class="home-project-body">
-                <div class="home-project-head">
-                  <h3>TaskMate</h3>
-                  <a class="home-project-link" href="https://github.com/Litone11/FEUP-ESOF" target="_blank" rel="noreferrer">↗</a>
-                </div>
                 <p data-i18n="projects.taskmateDesc">
                   Aplicação de gestão de tarefas e colaboração construída em Flutter, pensada para grupos, organização partilhada e fluxos práticos de produtividade.
                 </p>
@@ -597,19 +600,13 @@
               <div class="home-project-visual">
                 <div class="home-project-visual-content">
                   <div class="home-project-visual-label">Networks Project</div>
-                  <div>
+                  <div class="home-project-visual-footer">
                     <div class="home-project-visual-title">Virtual Cable</div>
-                    <p class="home-project-visual-copy" data-i18n="projects.cableTeaser">
-                      Simulação de portas TX/RX virtuais para testar comunicação de baixo nível.
-                    </p>
+                    <a class="home-project-link" href="https://github.com/Litone11/FEUP-RCOM" target="_blank" rel="noreferrer">↗</a>
                   </div>
                 </div>
               </div>
               <div class="home-project-body">
-                <div class="home-project-head">
-                  <h3>Virtual Cable</h3>
-                  <a class="home-project-link" href="https://github.com/Litone11/FEUP-RCOM" target="_blank" rel="noreferrer">↗</a>
-                </div>
                 <p data-i18n="projects.cableDesc">
                   Projeto de redes de computadores que cria pares de portas seriais virtuais usando sockets para testar fluxos de comunicação e transmissão de dados.
                 </p>

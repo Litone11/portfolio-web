@@ -26,6 +26,10 @@
   padding: 1rem 1.5rem;
 }
 
+.site-nav__lang {
+  justify-self: center;
+}
+
 .site-nav__brand {
   color: var(--color-primary);
   font-family: var(--font-headline);
