@@ -293,22 +293,6 @@
         line-height: 1.7;
       }
 
-      .contact-footer {
-        width: 100%;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        background: var(--color-surface-lowest);
-      }
-
-      .contact-footer__inner {
-        max-width: 1536px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        padding: 2.5rem 1.5rem;
-      }
 
       @media (max-width: 1180px) {
         .contact-hero,
@@ -444,18 +428,15 @@
       </div>
     </main>
 
-    <footer class="contact-footer">
-      <div class="contact-footer__inner">
-        <div class="font-headline font-bold uppercase tracking-[0.2em] text-white">
-          LUÍS <span class="text-tertiary">MARTINS</span>
-        </div>
-        <div class="font-mono text-[10px] uppercase tracking-widest text-on-surface-variant" data-i18n="footer.section">
-          © 2026 PORTFOLIO // CONTACTO
-        </div>
-        <div class="flex gap-8 font-mono text-[10px] uppercase tracking-widest">
-          <a class="text-on-surface-variant transition-colors hover:text-tertiary" href="https://github.com/Litone11" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="text-on-surface-variant transition-colors hover:text-tertiary" href="https://www.linkedin.com/in/luis-martins-874819238/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="text-tertiary transition-colors hover:text-white" href="mailto:luis@luismartins.website">Email</a>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">LUÍS <span>MARTINS</span></div>
+        <div class="site-footer__meta" data-i18n="footer.section">© 2026 PORTFOLIO // CONTACTO</div>
+        <div class="site-footer__links">
+          <a href="https://github.com/Litone11" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/luis-martins-874819238/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="/curriculo.pdf" target="_blank" rel="noreferrer" data-i18n="nav.cv">CV</a>
+          <a href="mailto:luis@luismartins.website">Email</a>
         </div>
       </div>
     </footer>
