@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "build": "node -e \"console.log('Static portfolio: no build step required')\"",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "node server.mjs",
     "clean": "rm -rf dist"
