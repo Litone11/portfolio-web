@@ -1,6 +1,6 @@
 // Brutalist portfolio — Luís Martins
 import { useState, useEffect, useRef, ReactNode, ComponentType } from "react";
-import { Github, Linkedin, Mail, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, FileText, SkipBack, Play, Pause, SkipForward } from "lucide-react";
 
 // ----- Types -----
 interface ProjectItem {
@@ -243,10 +243,9 @@ function MetaLine() {
 
 function StatStrip() {
   const stats = [
-    { k: "ANOS",        v: 3,      suffix: "+" },
-    { k: "PROJETOS",    v: 9,      suffix: "" },
-    { k: "TECNOLOGIAS", v: 20,     suffix: "+" },
-    { k: "CAPGEMINI",   v: "2025", isText: true },
+    { k: "ANOS",        v: 3,  suffix: "+" },
+    { k: "PROJETOS",    v: 9,  suffix: "" },
+    { k: "TECNOLOGIAS", v: 20, suffix: "+" },
   ];
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -266,7 +265,7 @@ function StatStrip() {
       {stats.map((s) => (
         <div key={s.k} className="stat">
           <span className="stat-v">
-            {s.isText ? s.v : <CountUp to={s.v as number} run={visible} />}
+            {<CountUp to={s.v as number} run={visible} />}
             {s.suffix || ""}
           </span>
           <span className="stat-k">{s.k}</span>
@@ -493,7 +492,7 @@ function NowStatus() {
   const prev = () => { setIdx(i => (i - 1 + DRAKE_SONGS.length) % DRAKE_SONGS.length); };
   const next = () => { setIdx(i => (i + 1) % DRAKE_SONGS.length); };
 
-  const playLabel = loading ? "···" : playing ? "⏸" : "▶";
+  const PlayIcon = loading ? null : playing ? Pause : Play;
 
   return (
     <div className="now-status">
@@ -528,16 +527,21 @@ function NowStatus() {
       </div>
 
       <div className="ns-controls">
-        <button className="ns-btn" onClick={prev} aria-label="Anterior">⏮</button>
+        <button className="ns-btn" onClick={prev} aria-label="Anterior">
+          <SkipBack size={14} strokeWidth={2} />
+        </button>
         <button
           className="ns-btn ns-btn-play"
           onClick={() => !loading && setPlaying(p => !p)}
           aria-label={playing ? "Pausa" : "Play"}
           disabled={loading || !previewUrl}
         >
-          {playLabel}
+          {loading ? <span style={{ fontSize: 12, letterSpacing: "0.1em" }}>···</span>
+            : PlayIcon ? <PlayIcon size={14} strokeWidth={2} /> : null}
         </button>
-        <button className="ns-btn" onClick={next} aria-label="Próxima">⏭</button>
+        <button className="ns-btn" onClick={next} aria-label="Próxima">
+          <SkipForward size={14} strokeWidth={2} />
+        </button>
       </div>
     </div>
   );
@@ -615,11 +619,12 @@ const ACCENT_SWATCHES: { k: TweakState["accent"]; c: string }[] = [
   { k: "black", c: "#2a2a2a" },
 ];
 
-function TimelineRail({ inverted, onToggleInverted, accent, onSetAccent }: {
+function TimelineRail({ inverted, onToggleInverted, accent, onSetAccent, onClose }: {
   inverted: boolean;
   onToggleInverted: () => void;
   accent: TweakState["accent"];
   onSetAccent: (a: TweakState["accent"]) => void;
+  onClose?: () => void;
 }) {
   const [active, setActive] = useState("intro");
   const [progress, setProgress] = useState(0);
@@ -656,6 +661,7 @@ function TimelineRail({ inverted, onToggleInverted, accent, onSetAccent }: {
 
   const go = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
+    onClose?.();
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -1004,14 +1010,46 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
   accent: TweakState["accent"];
   onSetAccent: (a: TweakState["accent"]) => void;
 }) {
+  const [railOpen, setRailOpen] = useState(false);
+  const close = () => setRailOpen(false);
+
+  // Close on Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Lock body scroll when drawer open
+  useEffect(() => {
+    document.body.style.overflow = railOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [railOpen]);
+
   return (
     <div className="layout layout-a">
-      <aside className="rail-col">
+      {/* Hamburger (mobile only) */}
+      <button
+        className={`mob-menu-btn${railOpen ? " mob-open" : ""}`}
+        onClick={() => setRailOpen(v => !v)}
+        aria-label={railOpen ? "Fechar menu" : "Abrir menu"}
+        aria-expanded={railOpen}
+      >
+        <span className="mob-bar" />
+        <span className="mob-bar" />
+        <span className="mob-bar" />
+      </button>
+
+      {/* Backdrop (mobile only) */}
+      {railOpen && <div className="rail-backdrop" onClick={close} aria-hidden="true" />}
+
+      <aside className={`rail-col${railOpen ? " rail-open" : ""}`}>
         <TimelineRail
           inverted={inverted}
           onToggleInverted={onToggleInverted}
           accent={accent}
           onSetAccent={onSetAccent}
+          onClose={close}
         />
       </aside>
 
