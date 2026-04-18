@@ -1772,7 +1772,21 @@ body:has(.intro-loader) { overflow: hidden; }
     min-height: auto;
     padding-top: 0;
   }
-  .layout-a .col-right { position: static; }
+  /* Override desktop sticky + align-self: start so col-right fills full width */
+  .layout-a .col-right {
+    position: static;
+    align-self: stretch;
+    transform: none;
+    will-change: auto;
+  }
+  /* Photo: landscape crop on mobile so it doesn't dominate the screen */
+  .layout-a .col-right .photo-ph {
+    aspect-ratio: 16 / 7;
+    max-height: 220px;
+  }
+  /* Player sits below with no extra top margin (gap handles spacing) */
+  .layout-a .col-right .now-status { margin-top: 0; }
+
   .layout-a .col-center { padding-top: 0; contain: none; }
 
   /* Name sizing */
