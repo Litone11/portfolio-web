@@ -1778,7 +1778,7 @@ body:has(.intro-loader) { overflow: hidden; }
     align-self: stretch;
     transform: none;
     will-change: auto;
-    height: 360px;
+    height: 420px;
     overflow: hidden;
     border: 2px solid var(--line);
   }
@@ -1791,6 +1791,10 @@ body:has(.intro-loader) { overflow: hidden; }
     aspect-ratio: unset;
     border: none;
   }
+  /* Frame the face — offset from top so the face sits above the overlay */
+  .layout-a .col-right .photo-real {
+    object-position: center 35%;
+  }
   /* Corner decorations don't make sense on full-bleed photo */
   .layout-a .col-right .photo-corners { display: none; }
   /* Bottom gradient so the overlay text is readable */
@@ -1798,7 +1802,7 @@ body:has(.intro-loader) { overflow: hidden; }
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 15%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.55) 100%);
     pointer-events: none;
     z-index: 1;
   }
@@ -1815,18 +1819,17 @@ body:has(.intro-loader) { overflow: hidden; }
     backdrop-filter: blur(20px) saturate(1.5);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
   }
+  /* Hide the "ON REPEAT · PREVIEW" label row — reduces overlay height by ~36px */
+  .layout-a .col-right .ns-top { display: none; }
   /* Force light colors inside the dark overlay regardless of theme */
-  .layout-a .col-right .ns-label  { color: rgba(240,238,233,0.52); }
-  .layout-a .col-right .ns-ext    { color: rgba(240,238,233,0.52); }
   .layout-a .col-right .ns-title  { color: #f0eee9; font-size: 15px; }
   .layout-a .col-right .ns-artist { color: rgba(240,238,233,0.52); }
   .layout-a .col-right .ns-times  { color: rgba(240,238,233,0.40); }
   .layout-a .col-right .ns-progress-track { background: rgba(255,255,255,0.14); }
   /* Tighter spacing inside overlay */
-  .layout-a .col-right .ns-top           { margin-bottom: 8px; }
   .layout-a .col-right .ns-info          { margin-bottom: 8px; }
   .layout-a .col-right .ns-progress-wrap { margin-bottom: 10px; }
-  /* Waveform hidden — saves space, stays clean */
+  /* Waveform hidden — keeps overlay compact */
   .layout-a .col-right .ns-wave { display: none; }
   /* Buttons styled for dark overlay */
   .layout-a .col-right .ns-btn {
