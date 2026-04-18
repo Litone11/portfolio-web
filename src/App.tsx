@@ -1069,6 +1069,7 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
             <div className="photo-ph">
               <img src="/foto.jpg" alt="Luís Martins" className="photo-real" />
               <div className="photo-corners"><span/><span/><span/><span/></div>
+              <div className="photo-caption">Porto, PT · 2025</div>
             </div>
             <LiveClock />
             <NowStatus />

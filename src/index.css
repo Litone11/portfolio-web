@@ -348,10 +348,82 @@ h2 {
   position: sticky;
   top: 56px;
   align-self: start;
-  /* Force own compositing layer — prevents sibling reflows from moving this */
   transform: translateZ(0);
   will-change: transform;
+  /* Unified card */
+  border: 2px solid var(--line);
+  overflow: hidden;
 }
+
+/* ── Sidebar card internals ─────────────────────────────────────── */
+
+/* Photo: no inner border, just a divider underneath */
+.layout-a .col-right .photo-ph {
+  border: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Caption inside the photo */
+.photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 12px 9px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.45));
+  pointer-events: none;
+}
+
+/* Clock: compact 2-column grid instead of stacked boxes */
+.layout-a .col-right .live-clock {
+  margin-top: 0;
+  padding: 11px 14px;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 0 10px;
+  align-items: center;
+}
+/* Hide the repeating line pattern — cleaner without it in the card */
+.layout-a .col-right .live-clock::before { display: none; }
+/* PORTO · LIVE label stays top-left */
+.layout-a .col-right .lc-label { grid-column: 1; grid-row: 1; margin-bottom: 1px; }
+/* Time digits: smaller, left column, bottom row */
+.layout-a .col-right .lc-digits {
+  grid-column: 1; grid-row: 2;
+  font-size: clamp(18px, 2vw, 24px);
+}
+/* Hide seconds & its colon — show only HH:MM */
+.layout-a .col-right .lc-digits > :nth-child(n+4) { display: none; }
+/* Timezone + date: stacked on the right */
+.layout-a .col-right .lc-meta {
+  grid-column: 2; grid-row: 1 / 3;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 0;
+  text-align: right;
+}
+
+/* Player: no inner border, lives at the bottom of the card */
+.layout-a .col-right .now-status {
+  margin-top: 0;
+  border: none;
+  padding: 11px 14px 13px;
+}
+/* Tighter internal spacing */
+.layout-a .col-right .ns-top           { margin-bottom: 6px; }
+.layout-a .col-right .ns-info          { margin-bottom: 8px; }
+.layout-a .col-right .ns-progress-wrap { margin-bottom: 10px; }
+/* Waveform removed — keeps the card compact */
+.layout-a .col-right .ns-wave { display: none; }
 .layout-a .col-center {
   padding-top: 16px;
   /* Isolate layout: changes inside here don't affect siblings */
