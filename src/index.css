@@ -195,7 +195,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
-  max-width: 200px;
+  width: 100%;
 }
 .socials-grid li { aspect-ratio: 1 / 1; }
 .socials-grid a {
@@ -337,8 +337,9 @@ h2 {
 
 .layout-a .hero {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 48px;
+  /* Right column fluidly tracks viewport — no hard jumps at breakpoints */
+  grid-template-columns: 1fr clamp(210px, 21vw, 280px);
+  gap: clamp(24px, 3.5vw, 48px);
   align-items: start;
   min-height: 70vh;
   padding-top: 24px;
@@ -381,9 +382,27 @@ h2 {
 
 /* ---- Rail head ---- */
 .rail-head {
-  padding-bottom: 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 18px;
   margin-bottom: 20px;
   border-bottom: 2px solid var(--line);
+}
+.rail-monogram {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  line-height: 1;
+}
+.rail-year {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
 }
 
 /* ---- Timeline body ---- */
@@ -561,11 +580,13 @@ h2 {
   margin-bottom: 12px;
 }
 .rail-label-dots { letter-spacing: 0.1em; opacity: 0.5; }
+/* Hide the inner "SOCIALS ↓" label — redundant with § ELSEWHERE */
+.rail-socials .side-label { display: none; }
 
 .rail-foot {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
   margin-top: 18px;
   padding-top: 14px;
   border-top: 1px solid var(--rule);
@@ -579,7 +600,7 @@ h2 {
   display: flex;
   gap: 5px;
   align-items: center;
-  margin-left: auto;
+  justify-content: center;
 }
 .rail-sw {
   width: 18px;
@@ -597,10 +618,12 @@ h2 {
   transform: scale(1.15);
 }
 .theme-toggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 8px 10px;
+  width: 100%;
+  padding: 9px 10px;
   border: 2px solid var(--line);
   background: var(--bg);
   color: var(--fg);
@@ -1286,7 +1309,7 @@ h2 {
 .lc-digits {
   font-family: var(--sans);
   font-weight: 700;
-  font-size: 40px;
+  font-size: clamp(28px, 3.2vw, 40px);
   letter-spacing: -0.03em;
   color: var(--fg);
   line-height: 1;
@@ -1606,7 +1629,7 @@ body:has(.intro-loader) { overflow: hidden; }
 @media (max-width: 1280px) {
   :root { --lpad: 44px; --rail-gap: 48px; }
 
-  .layout-a .hero { grid-template-columns: 1fr 220px; gap: 36px; }
+  /* Hero column handled by clamp() — no override needed */
 
   /* Hide year in project rows to give title more room */
   .p-year { display: none; }
@@ -1619,7 +1642,7 @@ body:has(.intro-loader) { overflow: hidden; }
 @media (max-width: 1100px) {
   :root { --lpad: 28px; --rail-w: 210px; --rail-gap: 40px; }
 
-  .layout-a .hero { grid-template-columns: 1fr 195px; gap: 24px; }
+  /* Hero column handled by clamp() — no override needed */
 
   /* Shrink rail typography slightly */
   .tl-label { font-size: 14px; }

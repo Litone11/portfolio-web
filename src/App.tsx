@@ -670,7 +670,10 @@ function TimelineRail({ inverted, onToggleInverted, accent, onSetAccent, onClose
 
   return (
     <div className="rail">
-      <div className="rail-head" />
+      <div className="rail-head">
+        <span className="rail-monogram">LM</span>
+        <span className="rail-year">MMXXV</span>
+      </div>
 
       <nav className="timeline" aria-label="Page timeline">
         <div className="tl-section-label">
