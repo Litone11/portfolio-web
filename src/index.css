@@ -478,7 +478,7 @@ h2 {
 }
 
 /* ---- Timeline body ---- */
-.timeline { flex: 1 1 auto; min-height: 0; }
+.timeline { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
 .tl-section-label {
   display: flex;
   justify-content: space-between;
@@ -491,7 +491,7 @@ h2 {
 }
 .tl-section-count { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
 
-.tl-track-wrap { position: relative; padding-left: 24px; }
+.tl-track-wrap { position: relative; padding-left: 24px; flex: 1; display: flex; flex-direction: column; }
 .tl-track {
   position: absolute;
   left: 7px;
@@ -512,9 +512,11 @@ h2 {
   list-style: none;
   margin: 0;
   padding: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  justify-content: space-between;
+  gap: 0;
 }
 .tl-item a {
   display: block;
