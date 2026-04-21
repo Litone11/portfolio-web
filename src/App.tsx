@@ -1,6 +1,6 @@
 // Brutalist portfolio — Luís Martins
 import { useState, useEffect, useRef, ReactNode, ComponentType } from "react";
-import { Github, Linkedin, Mail, FileText, SkipBack, Play, Pause, SkipForward } from "lucide-react";
+import { Github, Linkedin, Mail, FileText, SkipBack, Play, Pause, SkipForward, Volume2, VolumeX } from "lucide-react";
 
 // ----- Types -----
 interface ProjectItem {
@@ -235,8 +235,6 @@ function MetaLine() {
       <span className="dot"/> <TypewriterRole />
       <span className="sep">/</span>
       <span>Porto, PT</span>
-      <span className="sep">/</span>
-      <span className="live"><span className="live-dot"/> disponível · 2025</span>
     </div>
   );
 }
@@ -429,6 +427,8 @@ function NowStatus() {
   const [elapsed, setElapsed] = useState(0);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [volume, setVolume] = useState(0.8);
+  const prevVolumeRef = useRef(0.8);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const song = DRAKE_SONGS[idx];
@@ -489,6 +489,11 @@ function NowStatus() {
     else audio.pause();
   }, [playing]);
 
+  // Sync volume to audio element
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume]);
+
   const prev = () => { setIdx(i => (i - 1 + DRAKE_SONGS.length) % DRAKE_SONGS.length); };
   const next = () => { setIdx(i => (i + 1) % DRAKE_SONGS.length); };
 
@@ -542,6 +547,37 @@ function NowStatus() {
         <button className="ns-btn" onClick={next} aria-label="Próxima">
           <SkipForward size={14} strokeWidth={2} />
         </button>
+      </div>
+
+      <div className="ns-volume">
+        <button
+          className="ns-vol-btn"
+          aria-label={volume === 0 ? "Ativar som" : "Silenciar"}
+          onClick={() => {
+            if (volume === 0) {
+              setVolume(prevVolumeRef.current || 0.8);
+            } else {
+              prevVolumeRef.current = volume;
+              setVolume(0);
+            }
+          }}
+        >
+          {volume === 0 ? <VolumeX size={12} strokeWidth={2} /> : <Volume2 size={12} strokeWidth={2} />}
+        </button>
+        <input
+          className="ns-vol-slider"
+          type="range"
+          min={0}
+          max={1}
+          step={0.02}
+          value={volume}
+          onChange={e => {
+            const v = parseFloat(e.target.value);
+            if (v > 0) prevVolumeRef.current = v;
+            setVolume(v);
+          }}
+          aria-label="Volume"
+        />
       </div>
     </div>
   );
@@ -1076,7 +1112,7 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
           </aside>
         </section>
 
-        <div className="divider"><span>§</span></div>
+        <div style={{ marginTop: "64px" }} />
         <Projects variant="list" />
         <div className="divider"><span>§</span></div>
         <Experience />

@@ -341,7 +341,7 @@ h2 {
   grid-template-columns: 1fr clamp(210px, 21vw, 280px);
   gap: clamp(24px, 3.5vw, 48px);
   align-items: start;
-  min-height: 70vh;
+  min-height: 20vh;
   padding-top: 24px;
 }
 .layout-a .col-right {
@@ -1546,6 +1546,50 @@ h2 {
   color: var(--accent-ink);
   border-color: var(--accent);
 }
+.ns-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.ns-vol-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+.ns-vol-btn:hover { background: var(--fg); color: var(--bg); }
+.ns-vol-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: var(--line);
+  outline: none;
+  cursor: pointer;
+}
+.ns-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+}
+.ns-vol-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+}
 
 /* ----- Typewriter ----- */
 
@@ -1780,7 +1824,8 @@ body:has(.intro-loader) { overflow: hidden; }
     to   { opacity: 1; transform: translateX(0); }
   }
 
-  .rail { border-right: none; padding-right: 0; height: auto; }
+  .rail { border-right: none; padding-right: 0; height: 100%; }
+  .rail::before { display: none; }
 
   /* Backdrop */
   .rail-backdrop {
@@ -1838,101 +1883,8 @@ body:has(.intro-loader) { overflow: hidden; }
   .mob-menu-btn.mob-open .mob-bar:nth-child(2) { opacity: 0; width: 0; }
   .mob-menu-btn.mob-open .mob-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ---- Hero ---- */
-  .layout-a .hero {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    min-height: auto;
-    padding-top: 0;
-  }
-  /* ── Photo + player overlay card ──────────────────────────────── */
-  .layout-a .col-right {
-    position: relative;
-    align-self: stretch;
-    transform: none;
-    will-change: auto;
-    height: 420px;
-    overflow: hidden;
-    border: 2px solid var(--line);
-  }
-  /* Photo fills the entire card as background */
-  .layout-a .col-right .photo-ph {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: unset;
-    border: none;
-  }
-  /* Frame the face — offset from top so the face sits above the overlay */
-  .layout-a .col-right .photo-real {
-    object-position: center 35%;
-  }
-  /* Corner decorations don't make sense on full-bleed photo */
-  .layout-a .col-right .photo-corners { display: none; }
-  /* Bottom gradient so the overlay text is readable */
-  .layout-a .col-right::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.55) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-  /* Player floats above the photo at the bottom of the card */
-  .layout-a .col-right .now-status {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    z-index: 2;
-    margin: 0;
-    padding: 11px 14px 13px;
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.10);
-    background: rgba(8, 8, 10, 0.80);
-    backdrop-filter: blur(20px) saturate(1.5);
-    -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  }
-  /* Hide the "ON REPEAT · PREVIEW" label row — reduces overlay height by ~36px */
-  .layout-a .col-right .ns-top { display: none; }
-  /* Force light colors inside the dark overlay regardless of theme */
-  .layout-a .col-right .ns-title  { color: #f0eee9; font-size: 15px; }
-  .layout-a .col-right .ns-artist { color: rgba(240,238,233,0.52); }
-  .layout-a .col-right .ns-times  { color: rgba(240,238,233,0.40); }
-  .layout-a .col-right .ns-progress-track { background: rgba(255,255,255,0.14); }
-  /* Tighter spacing inside overlay */
-  .layout-a .col-right .ns-info          { margin-bottom: 8px; }
-  .layout-a .col-right .ns-progress-wrap { margin-bottom: 10px; }
-  /* Waveform hidden — keeps overlay compact */
-  .layout-a .col-right .ns-wave { display: none; }
-  /* Buttons styled for dark overlay */
-  .layout-a .col-right .ns-btn {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.22);
-    color: #f0eee9;
-  }
-  .layout-a .col-right .ns-btn:hover {
-    background: #f0eee9;
-    border-color: #f0eee9;
-    color: #0a0a0c;
-  }
-  .layout-a .col-right .ns-btn-play {
-    border-width: 1px;
-    border-color: rgba(255,255,255,0.30);
-  }
-  .layout-a .col-right .ns-btn-play:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-
-  .layout-a .col-center { padding-top: 0; contain: none; }
-
   /* Name sizing */
   .name-xl { font-size: clamp(56px, 14vw, 96px); }
-
-  /* Hide live clock and player on mobile to keep it clean */
-  .live-clock { display: none; }
 
   /* Projects */
   .project-row a { grid-template-columns: 40px 1fr 40px; gap: 12px; }
@@ -1958,4 +1910,103 @@ body:has(.intro-loader) { overflow: hidden; }
   .il-bottom { left: 24px; right: 24px; bottom: 24px; }
   .il-prog-row { gap: 12px; }
   .il-prog-pct { font-size: 32px; }
+}
+
+@media (max-width: 640px) {
+  /* Hero stacks vertically */
+  .layout-a .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    min-height: auto;
+    padding-top: 0;
+  }
+  .layout-a .col-center { padding-top: 0; contain: none; }
+
+  /* Hide live clock — not needed in the photo card */
+  .live-clock { display: none; }
+
+  /* ── Photo + player overlay card ──────────────────────────────── */
+  .layout-a .col-right {
+    position: relative;
+    align-self: stretch;
+    transform: none;
+    will-change: auto;
+    aspect-ratio: 2 / 3;
+    height: auto;
+    max-height: 120vw;
+    overflow: hidden;
+    border: 2px solid var(--line);
+  }
+  .layout-a .col-right .live-clock { display: none; }
+  .layout-a .col-right .photo-ph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    border: none;
+  }
+  .layout-a .col-right .photo-real { object-position: center top; }
+  .layout-a .col-right .photo-corners { display: none; }
+  .layout-a .col-right::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.72) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Translucent player ──────────────────────────────────────── */
+  .layout-a .col-right .now-status {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 14px 16px 18px;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    background: rgba(6, 6, 8, 0.52);
+  }
+  .layout-a .col-right .ns-top { display: none; }
+  .layout-a .col-right .ns-title  { color: #fff; font-size: 15px; }
+  .layout-a .col-right .ns-artist { color: rgba(255,255,255,0.50); }
+  .layout-a .col-right .ns-times  { color: rgba(255,255,255,0.38); }
+  .layout-a .col-right .ns-progress-track { background: rgba(255,255,255,0.18); }
+  .layout-a .col-right .ns-info          { margin-bottom: 10px; }
+  .layout-a .col-right .ns-progress-wrap { margin-bottom: 12px; }
+  .layout-a .col-right .ns-wave { display: none; }
+  .layout-a .col-right .ns-controls { gap: 8px; }
+  .layout-a .col-right .ns-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.28);
+    color: rgba(255,255,255,0.85);
+    transition: border-color 150ms, color 150ms;
+  }
+  .layout-a .col-right .ns-btn:hover {
+    background: transparent;
+    border-color: rgba(255,255,255,0.75);
+    color: #fff;
+  }
+  .layout-a .col-right .ns-btn-play {
+    border-color: rgba(255,255,255,0.45);
+    color: #fff;
+  }
+  .layout-a .col-right .ns-btn-play:hover {
+    border-color: #fff;
+    background: transparent;
+    color: #fff;
+  }
+  .layout-a .col-right .ns-vol-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.28);
+    color: rgba(255,255,255,0.75);
+  }
+  .layout-a .col-right .ns-vol-btn:hover {
+    border-color: rgba(255,255,255,0.75);
+    color: #fff;
+    background: transparent;
+  }
+  .layout-a .col-right .ns-vol-slider { background: rgba(255,255,255,0.22); }
 }

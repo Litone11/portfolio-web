@@ -28,3 +28,6 @@ src/adminSecret.js
 
 /.claude
 /.claude/*
+
+# Temporary screenshots (Claude Code comparisons)
+.tmp-*.png
