@@ -59,10 +59,10 @@ const DATA = {
     "Apaixonado por criar soluções — desde sistemas de baixo nível a aplicações web e mobile.",
   ],
   socials: [
-    { label: "GitHub",   handle: "Litone11",             href: "https://github.com/Litone11" },
-    { label: "LinkedIn", handle: "in/luis-martins",       href: "https://www.linkedin.com/in/luis-martins-874819238/" },
-    { label: "Email",    handle: "luis@luismartins.website", href: "mailto:luis@luismartins.website" },
-    { label: "CV",       handle: "curriculo.pdf",          href: "/curriculo.pdf" },
+    { label: "GitHub",   handle: "Litone11",                href: "https://github.com/Litone11" },
+    { label: "LinkedIn", handle: "in/luis-martins",          href: "https://www.linkedin.com/in/luis-martins-874819238/" },
+    { label: "Email",    handle: "luis@luismartins.website",  href: "mailto:luis@luismartins.website" },
+    { label: "CV",       handle: "curriculo.pdf",             href: "/curriculo.pdf" },
   ] as SocialItem[],
   projects: [
     {
@@ -148,17 +148,17 @@ const DATA = {
     },
   ] as ProjectItem[],
   experience: [
-    { role: "L.EIC — Lic. Eng. Informática e Computação", company: "FEUP", period: "2022 — Presente", place: "Porto" },
-    { role: "Software Engineering Intern", company: "Capgemini",   period: "2025 — Presente", place: "Portugal" },
-    { role: "M.EIC — Mest. Eng. Informática", company: "FEUP",    period: "2025 — Previsto", place: "Porto" },
+    { role: "L.EIC — Lic. Eng. Informática e Computação", company: "FEUP",      period: "2022 — Presente", place: "Porto" },
+    { role: "Software Engineering Intern",                 company: "Capgemini", period: "2025 — Presente", place: "Portugal" },
+    { role: "M.EIC — Mest. Eng. Informática",             company: "FEUP",      period: "2025 — Previsto", place: "Porto" },
   ] as ExperienceItem[],
 };
 
 const SHORTCUTS: Shortcut[] = [
-  { id: "intro",      label: "Intro",      num: "I",   count: null,           note: "Who" },
-  { id: "projects",   label: "Work",       num: "II",  count: "09 projetos",  note: "Selected" },
-  { id: "experience", label: "Educação",   num: "III", count: "FEUP",         note: "2022 — now" },
-  { id: "contact",    label: "Contact",    num: "IV",  count: "@luis",        note: "Say hi" },
+  { id: "intro",      label: "Intro",    num: "I",   count: null,          note: "Who" },
+  { id: "projects",   label: "Work",     num: "II",  count: "09 projetos", note: "Selected" },
+  { id: "experience", label: "Educação", num: "III", count: "FEUP",        note: "2022 — now" },
+  { id: "contact",    label: "Contact",  num: "IV",  count: "@luis",       note: "Say hi" },
 ];
 
 const SOCIAL_ICONS: SocialIcon[] = [
@@ -168,8 +168,54 @@ const SOCIAL_ICONS: SocialIcon[] = [
   { k: "cv", label: "CV",       href: "/curriculo.pdf",                                       icon: FileText },
 ];
 
+const ACCENT_SWATCHES: { k: TweakState["accent"]; c: string }[] = [
+  { k: "blue",  c: "#0000ee" },
+  { k: "red",   c: "#ee0000" },
+  { k: "green", c: "#00994d" },
+  { k: "black", c: "#000000" },
+];
+
+const LAYOUT_OPTIONS: { k: TweakState["layout"]; label: string; sub: string }[] = [
+  { k: "a", label: "A · Three-column (sketch)", sub: "Timeline left · name center · photo right" },
+  { k: "b", label: "B · Editorial",             sub: "Big photo + asymmetric hero" },
+  { k: "c", label: "C · Terminal",              sub: "Monospace stacked, dev-heavy" },
+];
+
+const STATS = [
+  { k: "ANOS",        v: 3,  suffix: "+" },
+  { k: "PROJETOS",    v: 9,  suffix: "" },
+  { k: "TECNOLOGIAS", v: 20, suffix: "+" },
+];
+
+const ACTIVITIES = [
+  { t: "Agora", a: "a estudar",  s: "Engenharia Informática · FEUP" },
+  { t: "2024",  a: "entregou",   s: "TaskMate — projeto ESOF" },
+  { t: "2024",  a: "lançou",     s: "Freelancing Platform" },
+  { t: "2023",  a: "construiu",  s: "The Invaders — jogo Java" },
+  { t: "2022",  a: "iniciou",    s: "B.Sc. na FEUP" },
+];
+
+const ROLES = [
+  "L.EIC @ FEUP",
+  "Intern @ Capgemini",
+  "Full-Stack Dev",
+  "Mobile Developer",
+  "M.EIC em breve",
+];
+
+const DRAKE_SONGS = [
+  { title: "God's Plan",     query: "drake gods plan",        href: "https://music.apple.com/us/album/scorpion/1418213110?i=1418213269" },
+  { title: "Hotline Bling",  query: "drake hotline bling",    href: "https://music.apple.com/us/album/views/1440841363?i=1440841730" },
+  { title: "One Dance",      query: "drake one dance wizkid", href: "https://music.apple.com/us/album/views/1440841363?i=1440841384" },
+  { title: "In My Feelings", query: "drake in my feelings",   href: "https://music.apple.com/us/album/scorpion/1418213110?i=1418213402" },
+  { title: "Passionfruit",   query: "drake passionfruit",     href: "https://music.apple.com/us/album/more-life/1440890708?i=1440891494" },
+];
+
+const initialIdx = Math.floor(Math.random() * DRAKE_SONGS.length);
+const PREVIEW_DURATION = 30;
+
 // ----- Photo placeholder -----
-function PhotoPlaceholder({ className = "", label = "PORTRAIT" }: { className?: string; label?: string }) {
+function PhotoPlaceholder({ className = "" }: { className?: string }) {
   return (
     <div className={`photo-ph ${className}`}>
       <svg width="100%" height="100%" viewBox="0 0 200 260" preserveAspectRatio="none">
@@ -240,11 +286,6 @@ function MetaLine() {
 }
 
 function StatStrip() {
-  const stats = [
-    { k: "ANOS",        v: 3,  suffix: "+" },
-    { k: "PROJETOS",    v: 9,  suffix: "" },
-    { k: "TECNOLOGIAS", v: 20, suffix: "+" },
-  ];
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -260,11 +301,11 @@ function StatStrip() {
 
   return (
     <div className="stat-strip" ref={ref}>
-      {stats.map((s) => (
+      {STATS.map((s) => (
         <div key={s.k} className="stat">
           <span className="stat-v">
-            {<CountUp to={s.v as number} run={visible} />}
-            {s.suffix || ""}
+            <CountUp to={s.v} run={visible} />
+            {s.suffix}
           </span>
           <span className="stat-k">{s.k}</span>
         </div>
@@ -320,19 +361,12 @@ function MagneticButton({ children, className = "", strength = 0.3, ...props }: 
 }
 
 function ActivityTicker() {
-  const activities = [
-    { t: "Agora",   a: "a estudar",            s: "Engenharia Informática · FEUP" },
-    { t: "2024",    a: "entregou",              s: "TaskMate — projeto ESOF" },
-    { t: "2024",    a: "lançou",                s: "Freelancing Platform" },
-    { t: "2023",    a: "construiu",             s: "The Invaders — jogo Java" },
-    { t: "2022",    a: "iniciou",               s: "B.Sc. na FEUP" },
-  ];
   const [idx, setIdx] = useState(0);
   useEffect(() => {
-    const iv = setInterval(() => setIdx(i => (i + 1) % activities.length), 3200);
+    const iv = setInterval(() => setIdx(i => (i + 1) % ACTIVITIES.length), 3200);
     return () => clearInterval(iv);
   }, []);
-  const cur = activities[idx];
+  const cur = ACTIVITIES[idx];
   return (
     <div className="activity-ticker" aria-live="polite">
       <span className="at-dot" />
@@ -373,18 +407,11 @@ function LiveClock() {
 }
 
 function TypewriterRole() {
-  const roles = [
-    "L.EIC @ FEUP",
-    "Intern @ Capgemini",
-    "Full-Stack Dev",
-    "Mobile Developer",
-    "M.EIC em breve",
-  ];
   const [idx, setIdx] = useState(0);
   const [text, setText] = useState("");
   const [phase, setPhase] = useState<"typing" | "deleting">("typing");
   useEffect(() => {
-    const target = roles[idx];
+    const target = ROLES[idx];
     let t: ReturnType<typeof setTimeout>;
     if (phase === "typing") {
       if (text.length < target.length) {
@@ -396,7 +423,7 @@ function TypewriterRole() {
       if (text.length > 0) {
         t = setTimeout(() => setText(target.slice(0, text.length - 1)), 30);
       } else {
-        setIdx((idx + 1) % roles.length);
+        setIdx((idx + 1) % ROLES.length);
         setPhase("typing");
       }
     }
@@ -409,17 +436,6 @@ function TypewriterRole() {
     </span>
   );
 }
-
-const DRAKE_SONGS = [
-  { title: "God's Plan",     query: "drake gods plan",       href: "https://music.apple.com/us/album/scorpion/1418213110?i=1418213269" },
-  { title: "Hotline Bling",  query: "drake hotline bling",   href: "https://music.apple.com/us/album/views/1440841363?i=1440841730" },
-  { title: "One Dance",      query: "drake one dance wizkid", href: "https://music.apple.com/us/album/views/1440841363?i=1440841384" },
-  { title: "In My Feelings", query: "drake in my feelings",  href: "https://music.apple.com/us/album/scorpion/1418213110?i=1418213402" },
-  { title: "Passionfruit",   query: "drake passionfruit",    href: "https://music.apple.com/us/album/more-life/1440890708?i=1440891494" },
-];
-
-const initialIdx = Math.floor(Math.random() * DRAKE_SONGS.length);
-const PREVIEW_DURATION = 30;
 
 function NowStatus() {
   const [idx, setIdx] = useState(initialIdx);
@@ -435,44 +451,34 @@ function NowStatus() {
   const progress = (elapsed / PREVIEW_DURATION) * 100;
   const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s) % 60).padStart(2, "0")}`;
 
-  // Fetch iTunes preview URL when song changes
   useEffect(() => {
     setPreviewUrl(null);
     setPlaying(false);
     setElapsed(0);
     setLoading(true);
-
     fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(song.query)}&entity=song&limit=1&media=music`)
       .then(r => r.json())
-      .then(data => {
-        const url = data.results?.[0]?.previewUrl ?? null;
-        setPreviewUrl(url);
-      })
+      .then(data => setPreviewUrl(data.results?.[0]?.previewUrl ?? null))
       .catch(() => setPreviewUrl(null))
       .finally(() => setLoading(false));
   }, [idx]);
 
-  // Create / destroy audio element when previewUrl changes
   useEffect(() => {
     if (!previewUrl) return;
-    // Pause any previous audio before creating a new one
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = null;
     }
     const audio = new Audio(previewUrl);
     audioRef.current = audio;
-
     const onTime = () => setElapsed(audio.currentTime);
     const onEnd = () => {
       setPlaying(false);
       setElapsed(0);
       setIdx(i => (i + 1) % DRAKE_SONGS.length);
     };
-
     audio.addEventListener("timeupdate", onTime);
     audio.addEventListener("ended", onEnd);
-
     return () => {
       audio.pause();
       audio.removeEventListener("timeupdate", onTime);
@@ -481,7 +487,6 @@ function NowStatus() {
     };
   }, [previewUrl]);
 
-  // Sync play / pause state to audio element
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -489,15 +494,12 @@ function NowStatus() {
     else audio.pause();
   }, [playing]);
 
-  // Sync volume to audio element
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
 
-  const prev = () => { setIdx(i => (i - 1 + DRAKE_SONGS.length) % DRAKE_SONGS.length); };
-  const next = () => { setIdx(i => (i + 1) % DRAKE_SONGS.length); };
-
-  const PlayIcon = loading ? null : playing ? Pause : Play;
+  const prev = () => setIdx(i => (i - 1 + DRAKE_SONGS.length) % DRAKE_SONGS.length);
+  const next = () => setIdx(i => (i + 1) % DRAKE_SONGS.length);
 
   return (
     <div className="now-status">
@@ -541,8 +543,11 @@ function NowStatus() {
           aria-label={playing ? "Pausa" : "Play"}
           disabled={loading || !previewUrl}
         >
-          {loading ? <span style={{ fontSize: 12, letterSpacing: "0.1em" }}>···</span>
-            : PlayIcon ? <PlayIcon size={14} strokeWidth={2} /> : null}
+          {loading
+            ? <span style={{ fontSize: 12, letterSpacing: "0.1em" }}>···</span>
+            : playing
+              ? <Pause size={14} strokeWidth={2} />
+              : <Play size={14} strokeWidth={2} />}
         </button>
         <button className="ns-btn" onClick={next} aria-label="Próxima">
           <SkipForward size={14} strokeWidth={2} />
@@ -647,13 +652,6 @@ function Bio() {
     </div>
   );
 }
-
-const ACCENT_SWATCHES: { k: TweakState["accent"]; c: string }[] = [
-  { k: "blue",  c: "#0000ee" },
-  { k: "red",   c: "#ee0000" },
-  { k: "green", c: "#00994d" },
-  { k: "black", c: "#2a2a2a" },
-];
 
 function TimelineRail({ inverted, onToggleInverted, accent, onSetAccent, onClose }: {
   inverted: boolean;
@@ -904,7 +902,6 @@ function Footer() {
 
   return (
     <footer className="footer">
-      {/* Heading */}
       <div className="footer-cta">
         <div className="fc-label">§ CONTACT</div>
         <a href="mailto:luis@luismartins.website" className="fc-email" data-cursor="email">
@@ -913,9 +910,7 @@ function Footer() {
         <p className="fc-sub">Aberto a oportunidades, colaborações e conversas.</p>
       </div>
 
-      {/* Form + links side by side */}
       <div className="contact-grid">
-        {/* Form */}
         <form className="contact-form" onSubmit={handleSubmit} noValidate>
           {sent ? (
             <div className="cf-sent">
@@ -967,7 +962,6 @@ function Footer() {
           )}
         </form>
 
-        {/* Direct links */}
         <div className="contact-links">
           <div className="cl-label">DIRECTO</div>
           <ul>
@@ -1042,7 +1036,7 @@ function CustomCursor() {
   );
 }
 
-// ----- Layout A: Three-column (close to sketch) -----
+// ----- Layout A: Three-column -----
 function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
   inverted: boolean;
   onToggleInverted: () => void;
@@ -1052,14 +1046,12 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
   const [railOpen, setRailOpen] = useState(false);
   const close = () => setRailOpen(false);
 
-  // Close on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Lock body scroll when drawer open
   useEffect(() => {
     document.body.style.overflow = railOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -1067,7 +1059,6 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
 
   return (
     <div className="layout layout-a">
-      {/* Hamburger (mobile only) */}
       <button
         className={`mob-menu-btn${railOpen ? " mob-open" : ""}`}
         onClick={() => setRailOpen(v => !v)}
@@ -1079,7 +1070,6 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
         <span className="mob-bar" />
       </button>
 
-      {/* Backdrop (mobile only) */}
       {railOpen && <div className="rail-backdrop" onClick={close} aria-hidden="true" />}
 
       <aside className={`rail-col${railOpen ? " rail-open" : ""}`}>
@@ -1125,7 +1115,7 @@ function LayoutA({ inverted, onToggleInverted, accent, onSetAccent }: {
 }
 
 // ----- Layout B: Editorial, photo big + asymmetric -----
-function LayoutB({ inverted, onToggleInverted }: { inverted: boolean; onToggleInverted: () => void }) {
+function LayoutB() {
   return (
     <div className="layout layout-b">
       <header className="top-bar">
@@ -1161,7 +1151,7 @@ function LayoutB({ inverted, onToggleInverted }: { inverted: boolean; onToggleIn
 }
 
 // ----- Layout C: Terminal / mono stacked -----
-function LayoutC({ inverted, onToggleInverted }: { inverted: boolean; onToggleInverted: () => void }) {
+function LayoutC() {
   return (
     <div className="layout layout-c">
       <div className="term-head">
@@ -1180,7 +1170,7 @@ function LayoutC({ inverted, onToggleInverted }: { inverted: boolean; onToggleIn
             <MetaLine />
           </div>
           <div className="hero-photo-sm">
-            <PhotoPlaceholder label="/portrait.jpg" />
+            <PhotoPlaceholder />
           </div>
         </div>
         <div className="term-line">$ ls ~/links</div>
@@ -1203,11 +1193,6 @@ function TweaksPanel({ open, state, setState }: {
   setState: (s: TweakState) => void;
 }) {
   if (!open) return null;
-  const layouts: { k: TweakState["layout"]; label: string; sub: string }[] = [
-    { k: "a", label: "A · Three-column (sketch)", sub: "Timeline left · name center · photo right" },
-    { k: "b", label: "B · Editorial", sub: "Big photo + asymmetric hero" },
-    { k: "c", label: "C · Terminal", sub: "Monospace stacked, dev-heavy" },
-  ];
   return (
     <div className="tweaks">
       <div className="tweaks-head">
@@ -1217,7 +1202,7 @@ function TweaksPanel({ open, state, setState }: {
       <div className="tweaks-body">
         <div className="tw-group">
           <div className="tw-label">Layout</div>
-          {layouts.map(l => (
+          {LAYOUT_OPTIONS.map(l => (
             <button
               key={l.k}
               className={`tw-opt ${state.layout === l.k ? "on" : ""}`}
@@ -1231,12 +1216,7 @@ function TweaksPanel({ open, state, setState }: {
         <div className="tw-group">
           <div className="tw-label">Accent</div>
           <div className="tw-swatches">
-            {([
-              { k: "blue",  c: "#0000ee" },
-              { k: "red",   c: "#ee0000" },
-              { k: "green", c: "#00994d" },
-              { k: "black", c: "#000000" },
-            ] as { k: TweakState["accent"]; c: string }[]).map(s => (
+            {ACCENT_SWATCHES.map(s => (
               <button
                 key={s.k}
                 className={`tw-sw ${state.accent === s.k ? "on" : ""}`}
@@ -1319,7 +1299,6 @@ function IntroLoader({ onExitStart, onDone }: { onExitStart: () => void; onDone:
         );
         setScrambled(next);
       } else if (el <= totalIn + exitDur) {
-        // Fire onExitStart once so layout can begin fading in underneath
         if (!exitStartFired.current) {
           exitStartFired.current = true;
           onExitStartRef.current();
@@ -1340,7 +1319,7 @@ function IntroLoader({ onExitStart, onDone }: { onExitStart: () => void; onDone:
     const iv = setInterval(tick, 16);
     tick();
     return () => clearInterval(iv);
-  }, []); // empty — runs once on mount only
+  }, []);
 
   const lerp = (from: number, to: number, start: number, end: number) => {
     const p = Math.max(0, Math.min(1, (t - start) / (end - start)));
@@ -1360,8 +1339,8 @@ function IntroLoader({ onExitStart, onDone }: { onExitStart: () => void; onDone:
     >
       <div className="il-stage">
         <div className="il-name" style={{ opacity: nameOp }}>
-          <span className="il-name-row">{scrambled[0] || "\u00A0"}</span>
-          <span className="il-name-row">{scrambled[1] || "\u00A0"}</span>
+          <span className="il-name-row">{scrambled[0] || " "}</span>
+          <span className="il-name-row">{scrambled[1] || " "}</span>
         </div>
       </div>
 
@@ -1408,11 +1387,6 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Called when intro begins its exit fade — start revealing the layout underneath
-  const handleExitStart = () => setBooted(true);
-  // Called when intro fully gone — unmount the overlay
-  const handleIntroDone = () => setIntroDone(true);
-
   const rootClass = [
     "root",
     `accent-${state.accent}`,
@@ -1422,7 +1396,12 @@ export default function App() {
 
   return (
     <div className={rootClass}>
-      {!introDone && <IntroLoader onExitStart={handleExitStart} onDone={handleIntroDone} />}
+      {!introDone && (
+        <IntroLoader
+          onExitStart={() => setBooted(true)}
+          onDone={() => setIntroDone(true)}
+        />
+      )}
       {state.cursor && <CustomCursor />}
       {state.layout === "a" && (
         <LayoutA
@@ -1432,8 +1411,8 @@ export default function App() {
           onSetAccent={a => setState(s => ({ ...s, accent: a }))}
         />
       )}
-      {state.layout === "b" && <LayoutB inverted={state.inverted} onToggleInverted={() => setState(s => ({ ...s, inverted: !s.inverted }))} />}
-      {state.layout === "c" && <LayoutC inverted={state.inverted} onToggleInverted={() => setState(s => ({ ...s, inverted: !s.inverted }))} />}
+      {state.layout === "b" && <LayoutB />}
+      {state.layout === "c" && <LayoutC />}
       <TweaksPanel open={tweaksOpen} state={state} setState={setState} />
     </div>
   );
