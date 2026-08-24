@@ -1,6 +1,8 @@
-# 🏗️ Arquitetura & Decisões de Design — Portfolio Web
+# ⚡ Portfolio Web — Luís Martins
 
-Documentação técnica focada nas decisões de arquitetura, sistema de temas, padrões de engenharia e escolhas de performance subjacentes ao desenvolvimento deste portfólio web.
+> Repositório do meu portfólio web pessoal, disponível online em **[luismartins.website](https://luismartins.website)**.
+
+Este documento detalha a **arquitetura de software**, **decisões de design** e **escolhas de engenharia** adotadas no desenvolvimento da aplicação.
 
 ---
 
