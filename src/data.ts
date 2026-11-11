@@ -6,8 +6,8 @@ export const DATA = {
   role: "Software Engineer",
   location: "Porto, Portugal",
   bio: [
-    "Estudante finalista de Engenharia Informática e Computação (L.EIC) na FEUP.",
-    "Atualmente em estágio na Capgemini. A planear o Mestrado em Engenharia Informática (M.EIC) na FEUP.",
+    "Licenciado em Engenharia Informática e Computação (L.EIC) pela FEUP.",
+    "Atualmente a frequentar o Mestrado em Engenharia Informática e Computação (M.EIC) na FEUP, depois de um estágio na Capgemini.",
     "Apaixonado por criar soluções — desde sistemas de baixo nível a aplicações web e mobile.",
   ],
   socials: [
@@ -19,96 +19,44 @@ export const DATA = {
   projects: [
     {
       n: "01",
-      title: "TaskMate",
-      year: "2024",
-      kind: "Académico",
-      desc: "Aplicação de gestão de tarefas e colaboração com notificações push, integração de calendário e funcionalidades de colaboração em grupo.",
-      stack: ["Flutter", "Dart", "Firebase"],
-      github: "https://github.com/Litone11/FEUP-ESOF",
+      title: "MAGOL",
+      year: "2026",
+      kind: "Web",
+      desc: "Website institucional da MAGOL (carroçarias e drogaria, Aveiro) com painel de gestão próprio — a empresa edita catálogos, contactos e horários e recebe pedidos de orçamento sem tocar no código.",
+      stack: ["React", "Vite", "Supabase", "PostgreSQL", "Vercel"],
+      url: "https://magol.pt",
+      repo: "https://github.com/Litone11/magol-web-app",
     },
     {
       n: "02",
-      title: "Freelancing Platform",
-      year: "2024",
-      kind: "Académico",
-      desc: "Plataforma web em PHP com autenticação, controlo de sessões, sistema de perfis e base de dados relacional.",
-      stack: ["PHP", "MySQL", "HTML/CSS", "JavaScript"],
-      github: "https://github.com/Litone11/FEUP-LTW",
+      title: "Portfolio",
+      year: "2026",
+      kind: "Web",
+      desc: "Este site — SPA neo-brutalista com três layouts alternáveis em tempo real, tema claro/escuro e um player de pré-visualizações ligado à iTunes API.",
+      stack: ["React", "TypeScript", "Vite", "CSS", "Vercel"],
+      url: "https://luismartins.website",
+      repo: "https://github.com/Litone11/portfolio-web",
     },
     {
       n: "03",
-      title: "Graph Routing",
-      year: "2024",
+      title: "LEIC-FEUP",
+      year: "2022—2025",
       kind: "Académico",
-      desc: "Grafo para resolver problemas de rotas e localizações com leitura de CSV e processamento de algoritmos de caminho.",
-      stack: ["C++", "Algorithms", "Data Structures"],
-      github: "https://github.com/Litone11/FEUP-DA-1",
-    },
-    {
-      n: "04",
-      title: "Knapsack Problem",
-      year: "2024",
-      kind: "Académico",
-      desc: "Implementação do Problema da Mochila com força bruta, programação dinâmica, algoritmos gulosos e ILP.",
-      stack: ["C++", "Dynamic Programming", "ILP"],
-      github: "https://github.com/Litone11/FEUP-DA-2",
-    },
-    {
-      n: "05",
-      title: "The Invaders",
-      year: "2023",
-      kind: "Académico",
-      desc: "Jogo de arcade retro em Java com temas variáveis, padrões de design, menu, sistema de pontuação e mecânicas clássicas.",
-      stack: ["Java", "Design Patterns", "Lanterna"],
-      github: "https://github.com/Litone11/FEUP-LDTS",
-    },
-    {
-      n: "06",
-      title: "Minix Game",
-      year: "2023",
-      kind: "Académico",
-      desc: "Jogo implementado em C sobre Minix com drivers de dispositivos, entidades, lógica de jogo e gestão de eventos.",
-      stack: ["C", "Minix", "Low-level"],
-      github: "https://github.com/Litone11/FEUP-LCOM",
-    },
-    {
-      n: "07",
-      title: "Virtual Cable",
-      year: "2023",
-      kind: "Académico",
-      desc: "Programa de cabo virtual para testar portos seriais, criando pares TX/RX virtuais usando sockets.",
-      stack: ["C", "Sockets", "Serial Comms"],
-      github: "https://github.com/Litone11/FEUP-RCOM",
-    },
-    {
-      n: "08",
-      title: "SVG to PNG",
-      year: "2022",
-      kind: "Académico",
-      desc: "Conversor de SVG para PNG com suporte para transformações geométricas, grupos e duplicação de elementos.",
-      stack: ["C++", "SVG", "PNG"],
-      github: "https://github.com/Litone11/FEUP-PROG-1",
-    },
-    {
-      n: "09",
-      title: "Image Processing",
-      year: "2022",
-      kind: "Académico",
-      desc: "Processamento de imagens em C++ com leitura de ficheiros de configuração, parser de operações e geração de resultados.",
-      stack: ["C++", "Image Processing"],
-      github: "https://github.com/Litone11/FEUP-PROG-2",
+      desc: "Os 16 projetos da Licenciatura em Engenharia Informática e Computação, do 1.º ao 3.º ano — compiladores, inteligência artificial, computação gráfica, redes, sistemas de baixo nível e desenvolvimento web.",
+      stack: ["C", "C++", "Java", "Python", "PHP", "JavaScript"],
+      repo: "https://github.com/Litone11/LEIC-FEUP",
     },
   ] as ProjectItem[],
   experience: [
-    { role: "L.EIC — Lic. Eng. Informática e Computação", company: "FEUP",      period: "2022 — Presente", place: "Porto" },
-    { role: "Software Engineering Intern",                 company: "Capgemini", period: "2025 — Presente", place: "Portugal" },
-    { role: "M.EIC — Mest. Eng. Informática",             company: "FEUP",      period: "2025 — Previsto", place: "Porto" },
+    { role: "M.EIC — Mest. Eng. Informática e Computação", company: "FEUP",      period: "2025 — Presente", place: "Porto" },
+    { role: "Software Engineering Intern",                  company: "Capgemini", period: "2025",            place: "Portugal" },
+    { role: "L.EIC — Lic. Eng. Informática e Computação",  company: "FEUP",      period: "2022 — 2025",     place: "Porto" },
   ] as ExperienceItem[],
 };
 
 export const SHORTCUTS: Shortcut[] = [
   { id: "intro",      label: "Intro",    num: "I",   count: null,          note: "Who" },
-  { id: "projects",   label: "Work",     num: "II",  count: "09 projetos", note: "Selected" },
+  { id: "projects",   label: "Work",     num: "II",  count: "03 projetos", note: "Selected" },
   { id: "experience", label: "Educação", num: "III", count: "FEUP",        note: "2022 — now" },
   { id: "contact",    label: "Contact",  num: "IV",  count: "@luis",       note: "Say hi" },
 ];
@@ -134,8 +82,8 @@ export const LAYOUT_OPTIONS: { k: TweakState["layout"]; label: string; sub: stri
 ];
 
 export const STATS = [
-  { k: "ANOS",        v: 3,  suffix: "+" },
-  { k: "PROJETOS",    v: 9,  suffix: "" },
+  { k: "ANOS",        v: 4,  suffix: "+" },
+  { k: "PROJETOS",    v: 18, suffix: "" },
   { k: "TECNOLOGIAS", v: 20, suffix: "+" },
 ];
 
@@ -148,11 +96,10 @@ export const ACTIVITIES = [
 ];
 
 export const ROLES = [
-  "L.EIC @ FEUP",
-  "Intern @ Capgemini",
+  "M.EIC @ FEUP",
   "Full-Stack Dev",
+  "Web Developer",
   "Mobile Developer",
-  "M.EIC em breve",
 ];
 
 export const DRAKE_SONGS = [

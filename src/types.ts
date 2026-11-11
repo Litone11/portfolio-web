@@ -7,7 +7,8 @@ export interface ProjectItem {
   kind: string;
   desc: string;
   stack: string[];
-  github: string;
+  url?: string;
+  repo?: string;
 }
 
 export interface ExperienceItem {

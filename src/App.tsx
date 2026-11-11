@@ -1,218 +1,11 @@
 // Brutalist portfolio — Luís Martins
-import { useState, useEffect, useRef, ReactNode, ComponentType } from "react";
-import { Github, Linkedin, Mail, FileText, SkipBack, Play, Pause, SkipForward, Volume2, VolumeX } from "lucide-react";
-
-// ----- Types -----
-interface ProjectItem {
-  n: string;
-  title: string;
-  year: string;
-  kind: string;
-  desc: string;
-  stack: string[];
-  github: string;
-}
-
-interface ExperienceItem {
-  role: string;
-  company: string;
-  period: string;
-  place: string;
-}
-
-interface SocialItem {
-  label: string;
-  handle: string;
-  href: string;
-}
-
-interface SocialIcon {
-  k: string;
-  label: string;
-  href: string;
-  icon: ComponentType<{ size?: number; strokeWidth?: number }>;
-}
-
-interface Shortcut {
-  id: string;
-  label: string;
-  num: string;
-  count: string | null;
-  note: string;
-}
-
-interface TweakState {
-  layout: "a" | "b" | "c";
-  accent: "blue" | "red" | "green" | "black";
-  inverted: boolean;
-  cursor: boolean;
-}
-
-// ----- Data -----
-const DATA = {
-  name: "Luís Martins",
-  role: "Software Engineer",
-  location: "Porto, Portugal",
-  bio: [
-    "Estudante finalista de Engenharia Informática e Computação (L.EIC) na FEUP.",
-    "Atualmente em estágio na Capgemini. A planear o Mestrado em Engenharia Informática (M.EIC) na FEUP.",
-    "Apaixonado por criar soluções — desde sistemas de baixo nível a aplicações web e mobile.",
-  ],
-  socials: [
-    { label: "GitHub",   handle: "Litone11",                href: "https://github.com/Litone11" },
-    { label: "LinkedIn", handle: "in/luis-martins",          href: "https://www.linkedin.com/in/luis-martins-874819238/" },
-    { label: "Email",    handle: "luis@luismartins.website",  href: "mailto:luis@luismartins.website" },
-    { label: "CV",       handle: "curriculo.pdf",             href: "/curriculo.pdf" },
-  ] as SocialItem[],
-  projects: [
-    {
-      n: "01",
-      title: "TaskMate",
-      year: "2024",
-      kind: "Académico",
-      desc: "Aplicação de gestão de tarefas e colaboração com notificações push, integração de calendário e funcionalidades de colaboração em grupo.",
-      stack: ["Flutter", "Dart", "Firebase"],
-      github: "https://github.com/Litone11/FEUP-ESOF",
-    },
-    {
-      n: "02",
-      title: "Freelancing Platform",
-      year: "2024",
-      kind: "Académico",
-      desc: "Plataforma web em PHP com autenticação, controlo de sessões, sistema de perfis e base de dados relacional.",
-      stack: ["PHP", "MySQL", "HTML/CSS", "JavaScript"],
-      github: "https://github.com/Litone11/FEUP-LTW",
-    },
-    {
-      n: "03",
-      title: "Graph Routing",
-      year: "2024",
-      kind: "Académico",
-      desc: "Grafo para resolver problemas de rotas e localizações com leitura de CSV e processamento de algoritmos de caminho.",
-      stack: ["C++", "Algorithms", "Data Structures"],
-      github: "https://github.com/Litone11/FEUP-DA-1",
-    },
-    {
-      n: "04",
-      title: "Knapsack Problem",
-      year: "2024",
-      kind: "Académico",
-      desc: "Implementação do Problema da Mochila com força bruta, programação dinâmica, algoritmos gulosos e ILP.",
-      stack: ["C++", "Dynamic Programming", "ILP"],
-      github: "https://github.com/Litone11/FEUP-DA-2",
-    },
-    {
-      n: "05",
-      title: "The Invaders",
-      year: "2023",
-      kind: "Académico",
-      desc: "Jogo de arcade retro em Java com temas variáveis, padrões de design, menu, sistema de pontuação e mecânicas clássicas.",
-      stack: ["Java", "Design Patterns", "Lanterna"],
-      github: "https://github.com/Litone11/FEUP-LDTS",
-    },
-    {
-      n: "06",
-      title: "Minix Game",
-      year: "2023",
-      kind: "Académico",
-      desc: "Jogo implementado em C sobre Minix com drivers de dispositivos, entidades, lógica de jogo e gestão de eventos.",
-      stack: ["C", "Minix", "Low-level"],
-      github: "https://github.com/Litone11/FEUP-LCOM",
-    },
-    {
-      n: "07",
-      title: "Virtual Cable",
-      year: "2023",
-      kind: "Académico",
-      desc: "Programa de cabo virtual para testar portos seriais, criando pares TX/RX virtuais usando sockets.",
-      stack: ["C", "Sockets", "Serial Comms"],
-      github: "https://github.com/Litone11/FEUP-RCOM",
-    },
-    {
-      n: "08",
-      title: "SVG to PNG",
-      year: "2022",
-      kind: "Académico",
-      desc: "Conversor de SVG para PNG com suporte para transformações geométricas, grupos e duplicação de elementos.",
-      stack: ["C++", "SVG", "PNG"],
-      github: "https://github.com/Litone11/FEUP-PROG-1",
-    },
-    {
-      n: "09",
-      title: "Image Processing",
-      year: "2022",
-      kind: "Académico",
-      desc: "Processamento de imagens em C++ com leitura de ficheiros de configuração, parser de operações e geração de resultados.",
-      stack: ["C++", "Image Processing"],
-      github: "https://github.com/Litone11/FEUP-PROG-2",
-    },
-  ] as ProjectItem[],
-  experience: [
-    { role: "L.EIC — Lic. Eng. Informática e Computação", company: "FEUP",      period: "2022 — Presente", place: "Porto" },
-    { role: "Software Engineering Intern",                 company: "Capgemini", period: "2025 — Presente", place: "Portugal" },
-    { role: "M.EIC — Mest. Eng. Informática",             company: "FEUP",      period: "2025 — Previsto", place: "Porto" },
-  ] as ExperienceItem[],
-};
-
-const SHORTCUTS: Shortcut[] = [
-  { id: "intro",      label: "Intro",    num: "I",   count: null,          note: "Who" },
-  { id: "projects",   label: "Work",     num: "II",  count: "09 projetos", note: "Selected" },
-  { id: "experience", label: "Educação", num: "III", count: "FEUP",        note: "2022 — now" },
-  { id: "contact",    label: "Contact",  num: "IV",  count: "@luis",       note: "Say hi" },
-];
-
-const SOCIAL_ICONS: SocialIcon[] = [
-  { k: "gh", label: "GitHub",   href: "https://github.com/Litone11",                         icon: Github },
-  { k: "li", label: "LinkedIn", href: "https://www.linkedin.com/in/luis-martins-874819238/", icon: Linkedin },
-  { k: "em", label: "Email",    href: "mailto:luis@luismartins.website",                      icon: Mail },
-  { k: "cv", label: "CV",       href: "/curriculo.pdf",                                       icon: FileText },
-];
-
-const ACCENT_SWATCHES: { k: TweakState["accent"]; c: string }[] = [
-  { k: "blue",  c: "#0000ee" },
-  { k: "red",   c: "#ee0000" },
-  { k: "green", c: "#00994d" },
-  { k: "black", c: "#000000" },
-];
-
-const LAYOUT_OPTIONS: { k: TweakState["layout"]; label: string; sub: string }[] = [
-  { k: "a", label: "A · Three-column (sketch)", sub: "Timeline left · name center · photo right" },
-  { k: "b", label: "B · Editorial",             sub: "Big photo + asymmetric hero" },
-  { k: "c", label: "C · Terminal",              sub: "Monospace stacked, dev-heavy" },
-];
-
-const STATS = [
-  { k: "ANOS",        v: 3,  suffix: "+" },
-  { k: "PROJETOS",    v: 9,  suffix: "" },
-  { k: "TECNOLOGIAS", v: 20, suffix: "+" },
-];
-
-const ACTIVITIES = [
-  { t: "Agora", a: "a estudar",  s: "Engenharia Informática · FEUP" },
-  { t: "2024",  a: "entregou",   s: "TaskMate — projeto ESOF" },
-  { t: "2024",  a: "lançou",     s: "Freelancing Platform" },
-  { t: "2023",  a: "construiu",  s: "The Invaders — jogo Java" },
-  { t: "2022",  a: "iniciou",    s: "B.Sc. na FEUP" },
-];
-
-const ROLES = [
-  "L.EIC @ FEUP",
-  "Intern @ Capgemini",
-  "Full-Stack Dev",
-  "Mobile Developer",
-  "M.EIC em breve",
-];
-
-const DRAKE_SONGS = [
-  { title: "God's Plan",     query: "drake gods plan",        href: "https://music.apple.com/us/album/scorpion/1418213110?i=1418213269" },
-  { title: "Hotline Bling",  query: "drake hotline bling",    href: "https://music.apple.com/us/album/views/1440841363?i=1440841730" },
-  { title: "One Dance",      query: "drake one dance wizkid", href: "https://music.apple.com/us/album/views/1440841363?i=1440841384" },
-  { title: "In My Feelings", query: "drake in my feelings",   href: "https://music.apple.com/us/album/scorpion/1418213110?i=1418213402" },
-  { title: "Passionfruit",   query: "drake passionfruit",     href: "https://music.apple.com/us/album/more-life/1440890708?i=1440891494" },
-];
-
-const initialIdx = Math.floor(Math.random() * DRAKE_SONGS.length);
-const PREVIEW_DURATION = 30;
+import { useState, useEffect, useRef, ReactNode } from "react";
+import { SkipBack, Play, Pause, SkipForward, Volume2, VolumeX } from "lucide-react";
+import type { TweakState } from "./types";
+import {
+  DATA, SHORTCUTS, SOCIAL_ICONS, ACCENT_SWATCHES, LAYOUT_OPTIONS, STATS, ACTIVITIES, ROLES,
+  DRAKE_SONGS, initialIdx, PREVIEW_DURATION,
+} from "./data";
 
 // ----- Photo placeholder -----
 function PhotoPlaceholder({ className = "" }: { className?: string }) {
@@ -706,7 +499,7 @@ function TimelineRail({ inverted, onToggleInverted, accent, onSetAccent, onClose
     <div className="rail">
       <div className="rail-head">
         <span className="rail-monogram">LM</span>
-        <span className="rail-year">MMXXV</span>
+        <span className="rail-year">MMXXVI</span>
       </div>
 
       <nav className="timeline" aria-label="Page timeline">
@@ -836,27 +629,38 @@ function Projects({ variant = "list" }: { variant?: string }) {
           <span className="section-count">[ {DATA.projects.length} ]</span>
         </header>
         <ul className="projects-list" onMouseLeave={() => setHovered(null)}>
-          {DATA.projects.map((p, i) => (
-            <li
-              key={p.n}
-              className={`project-row ${hovered !== null && hovered !== i ? "dim" : ""} ${hovered === i ? "hot" : ""}`}
-              onMouseEnter={() => setHovered(i)}
-            >
-              <a href={p.github} target="_blank" rel="noreferrer">
-                <span className="p-n">{p.n}</span>
-                <span className="p-title">{p.title}</span>
-                <span className="p-kind">{p.kind}</span>
-                <span className="p-year">{p.year}</span>
-                <span className="p-arrow">↗</span>
-                <div className="p-hover">
-                  <p className="p-desc">{p.desc}</p>
-                  <div className="p-stack">
-                    {p.stack.map(s => <span key={s} className="tag">{s}</span>)}
+          {DATA.projects.map((p, i) => {
+            const primary = p.url || p.repo;
+            return (
+              <li
+                key={p.n}
+                className={`project-row ${hovered !== null && hovered !== i ? "dim" : ""} ${hovered === i ? "hot" : ""}`}
+                onMouseEnter={() => setHovered(i)}
+              >
+                <div className="p-row">
+                  <span className="p-n">{p.n}</span>
+                  {primary
+                    ? <a className="p-title p-link" href={primary} target="_blank" rel="noreferrer">{p.title}</a>
+                    : <span className="p-title">{p.title}</span>}
+                  <span className="p-kind">{p.kind}</span>
+                  <span className="p-year">{p.year}</span>
+                  <span className="p-arrow">{primary ? "↗" : ""}</span>
+                  <div className="p-body">
+                    <p className="p-desc">{p.desc}</p>
+                    <div className="p-stack">
+                      {p.stack.map((s, j) => <span key={j} className="tag">{s}</span>)}
+                    </div>
+                    {primary && (
+                      <div className="p-links">
+                        {p.url && <a href={p.url} target="_blank" rel="noreferrer" data-cursor="site">Site ↗</a>}
+                        {p.repo && <a href={p.repo} target="_blank" rel="noreferrer" data-cursor="código">Código ↗</a>}
+                      </div>
+                    )}
                   </div>
                 </div>
-              </a>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </section>
     </Reveal>
@@ -1121,7 +925,7 @@ function LayoutB() {
       <header className="top-bar">
         <span>LUÍS MARTINS</span>
         <span className="top-dots">· · · · · · · · · · · · · · · · · · · · · · · · · · ·</span>
-        <span>PORTFOLIO — MMXXV</span>
+        <span>PORTFOLIO — MMXXVI</span>
       </header>
 
       <div className="hero">
@@ -1157,7 +961,7 @@ function LayoutC() {
       <div className="term-head">
         <span>~/luis-martins</span>
         <span className="term-dots">● ● ●</span>
-        <span>ver 2025</span>
+        <span>ver 2026</span>
       </div>
 
       <div className="hero">
@@ -1365,19 +1169,39 @@ function IntroLoader({ onExitStart, onDone }: { onExitStart: () => void; onDone:
 }
 
 // ----- App -----
+const PREFS_KEY = "lm-prefs";
+
+// Theme + accent picked by the visitor, remembered across visits
+function loadPrefs(): Partial<Pick<TweakState, "inverted" | "accent">> {
+  try {
+    return JSON.parse(localStorage.getItem(PREFS_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
 export default function App() {
-  const [state, setState] = useState<TweakState>({
+  const [state, setState] = useState<TweakState>(() => ({
     layout: "a",
     accent: "blue",
-    inverted: false,
+    inverted: true,
     cursor: false,
-  });
+    ...loadPrefs(),
+  }));
   const [tweaksOpen, setTweaksOpen] = useState(false);
   const [booted, setBooted] = useState(false);
   const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
+    try {
+      localStorage.setItem(PREFS_KEY, JSON.stringify({ inverted: state.inverted, accent: state.accent }));
+    } catch { /* storage unavailable (private mode) */ }
+  }, [state.inverted, state.accent]);
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // Don't hijack typing in the contact form
+      if ((e.target as HTMLElement).closest("input, textarea")) return;
       if (e.key === "t" || e.key === "T") setTweaksOpen(v => !v);
       if (e.key === "1") setState(s => ({ ...s, layout: "a" }));
       if (e.key === "2") setState(s => ({ ...s, layout: "b" }));

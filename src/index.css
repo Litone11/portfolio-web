@@ -31,18 +31,26 @@
   --muted: #7a756c;
   --line: #e8e6e1;
   --rule: rgba(232, 230, 225, 0.14);
+  --accent-ink: #141518;
 }
+
+/* Lighter accents in dark mode — the light-mode ones fall below 2:1 on --bg */
+.root.inverted.accent-blue   { --accent: #7b8cff; }
+.root.inverted.accent-red    { --accent: #ff6b6b; }
+.root.inverted.accent-green  { --accent: #3ccf85; }
+.root.inverted.accent-black  { --accent: #e8e6e1; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  background: var(--bg);
+  background: #141518; /* dark until React mounts — avoids a white flash */
   color: var(--fg);
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
+body:has(.root:not(.inverted)) { background: var(--bg); }
 
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
@@ -807,7 +815,7 @@ h2 {
 }
 .project-row.dim { opacity: 0.32; }
 
-.project-row a {
+.p-row {
   display: grid;
   grid-template-columns: 60px 1fr 180px 120px 40px;
   gap: 24px;
@@ -816,13 +824,16 @@ h2 {
   position: relative;
   transition: padding 260ms cubic-bezier(.2,.8,.2,1), background 260ms ease;
 }
-.project-row:hover a {
+.project-row:hover .p-row {
   padding-left: 24px;
   background: var(--accent);
   color: var(--accent-ink);
 }
-.project-row:hover a .p-kind,
-.project-row:hover a .p-year { color: var(--accent-ink); opacity: 0.8; }
+.project-row:hover .p-kind,
+.project-row:hover .p-year { color: var(--accent-ink); opacity: 0.8; }
+
+/* Title link covers the whole row; secondary links sit above it */
+.p-link::after { content: ""; position: absolute; inset: 0; }
 
 .p-n {
   font-family: var(--mono);
@@ -853,18 +864,26 @@ h2 {
 }
 .project-row:hover .p-arrow { opacity: 1; transform: translateX(0); }
 
-.p-hover {
-  grid-column: 2 / 5;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 380ms cubic-bezier(.2,.8,.2,1), opacity 280ms ease, margin 300ms ease;
+.p-body {
+  grid-column: 2 / -1;
+  margin-top: -8px;
 }
-.project-row:hover .p-hover {
-  max-height: 160px;
-  opacity: 1;
-  margin-top: 12px;
+.p-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
 }
+.p-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+.p-links a:hover { opacity: 0.7; }
 .p-desc {
   font-size: 15px;
   line-height: 1.5;
@@ -1705,7 +1724,7 @@ body:has(.intro-loader) { overflow: hidden; }
 
   /* Hide year in project rows to give title more room */
   .p-year { display: none; }
-  .project-row a { grid-template-columns: 52px 1fr 160px 40px; gap: 20px; }
+  .p-row { grid-template-columns: 52px 1fr 160px 40px; gap: 20px; }
 
   .divider { margin: 56px 0; }
 }
@@ -1721,7 +1740,7 @@ body:has(.intro-loader) { overflow: hidden; }
 
   /* Drop kind column too */
   .p-kind { display: none; }
-  .project-row a { grid-template-columns: 40px 1fr 40px; gap: 16px; }
+  .p-row { grid-template-columns: 40px 1fr 40px; gap: 16px; }
 
   /* Bio text smaller */
   .bio p { font-size: clamp(15px, 1.1vw, 17px) !important; }
@@ -1841,7 +1860,7 @@ body:has(.intro-loader) { overflow: hidden; }
   .name-xl { font-size: clamp(56px, 14vw, 96px); }
 
   /* Projects */
-  .project-row a { grid-template-columns: 40px 1fr 40px; gap: 12px; }
+  .p-row { grid-template-columns: 40px 1fr 40px; gap: 12px; }
   .p-kind, .p-year { display: none; }
 
   /* Experience */
