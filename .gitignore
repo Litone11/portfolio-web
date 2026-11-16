@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Variáveis de ambiente (não versionar)
+.env
+.env.*
+!.env.example
+
 # Admin secret (não versionar)
 src/adminSecret.js
 
